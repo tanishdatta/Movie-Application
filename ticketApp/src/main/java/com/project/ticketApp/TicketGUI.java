@@ -1,4 +1,5 @@
 package com.project.ticketApp;
+<<<<<<< HEAD
 //stub done
 
 public class TicketGUI {
@@ -21,3 +22,8 @@ public class TicketGUI {
 
     }
 }
+=======
+public class TicketGUI{
+    
+}
+>>>>>>> 521794e0568f9b7d9588be86d42db25cbe314a1d
