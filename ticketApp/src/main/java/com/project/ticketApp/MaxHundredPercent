@@ -1,0 +1,11 @@
+package com.project.ticketApp;
+//Stub Finished
+public class MaxHundredPercent implements SeatCapStrategy{
+
+	@Override
+	public boolean allowSeatBooking() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}
