@@ -2,7 +2,7 @@ package com.project.ticketApp;
 
 import java.util.ArrayList;
 
-public class OfferedMovies {
+public class OfferedMovie {
 private Movie movie; 
 private ArrayList<Showtime> showtimes;
 

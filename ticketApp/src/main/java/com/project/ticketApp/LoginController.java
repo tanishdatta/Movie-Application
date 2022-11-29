@@ -1,6 +1,5 @@
 package com.project.ticketApp;
-//Max was here
-
+//stubs done
 public class LoginController {
     private MainController parentController;
     private RegisteredUser user;

@@ -1,5 +1,7 @@
 package com.project.ticketApp;
+import java.util.ArrayList;
+//Stub finished
 
-public class MovieFilterStrategy {
-
+public interface MovieFilterStrategy {
+    public ArrayList<OfferedMovie> filterMovies(ArrayList<OfferedMovie> inputList);
 }

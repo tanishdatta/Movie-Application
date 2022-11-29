@@ -1,6 +1,5 @@
 package com.project.ticketApp;
-
-import org.apache.commons.logging.Log;
+//stubs done
 
 import com.vaadin.flow.component.dialog.Dialog;
 
