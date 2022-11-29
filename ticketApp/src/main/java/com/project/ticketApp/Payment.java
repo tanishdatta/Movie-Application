@@ -1,7 +1,7 @@
 package com.project.ticketApp;
 
 import java.time.LocalDate;
-
+//Stub finished
 public class Payment {
     private int dollarAmount;
     private int creditCardNo;
@@ -15,10 +15,18 @@ public class Payment {
     }
 
     public int getDollarAmount(){
-        return 5;
+        return this.dollarAmount;
     }
 
     public int getCardNo(){
-        return 5;
+        return this.creditCardNo;
+    }
+
+    public String getCardName(){
+        return this.cardholderName;
+    }
+
+    public LocalDate getTransactionDate(){
+        return this.date;
     }
 }
