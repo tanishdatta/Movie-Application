@@ -8,7 +8,7 @@ public abstract class Singleton<E>{
     
     private ArrayList<E> arr;
 
-    private Singleton(){
+    protected Singleton(){
 
     }
 
@@ -25,7 +25,7 @@ public abstract class Singleton<E>{
         
     }
 
-    public int getNext(){
+    public int getNextID(){
         return (Integer) null;
     }
     private void initConnection(){

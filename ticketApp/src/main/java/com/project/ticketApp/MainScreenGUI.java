@@ -18,7 +18,7 @@ public class MainScreenGUI extends VerticalLayout{
         //call loadTheatreMovies in main controller
 
     }
-    public void loadTheatreMovies(ArrayList<OfferedMovies> movieList){
+    public void loadTheatreMovies(ArrayList<OfferedMovie> movieList){
         //called by main controller when offered movies for this theatre fetched
         //build Accordion of offeredmovies
         //inside each panel of the accordion is a list of buttons for each showtime

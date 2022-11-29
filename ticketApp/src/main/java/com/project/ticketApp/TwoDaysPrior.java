@@ -1,5 +1,4 @@
 package com.project.ticketApp;
-//Stub finished
 import java.util.ArrayList;
 //Stub Finished
 public class TwoDaysPrior implements MovieFilterStrategy{
