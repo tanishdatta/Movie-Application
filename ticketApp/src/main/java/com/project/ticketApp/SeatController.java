@@ -8,6 +8,8 @@ public class SeatController implements PaymentObserver{
     private int yCoord;
     private SeatCapStrategy seatCapStrat;
 
+    //needs to add itself to paymentObserver
+
     public SeatController(RegisteredUser user, Showtime showtime){
         //set parent control
         //set user

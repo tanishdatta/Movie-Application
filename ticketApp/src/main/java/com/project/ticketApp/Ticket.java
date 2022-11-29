@@ -7,6 +7,8 @@ public class Ticket {
     private Showtime showtime;
     private int price = 300;
     private int ticketID;
+    
+    //Remember to add ticket notification (email or pop up)
 
     public Ticket(int xCoord, int yCoord, Showtime showtime, int price){
     

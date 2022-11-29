@@ -5,6 +5,8 @@ public class LoginController implements PaymentObserver{
     private RegisteredUser user;
     private LoginGUI gui;
 
+    //need to add itself to paymentObserver
+
     public LoginController(MainController parentController){
         //instantiate and open logingui, passing in this
     }
