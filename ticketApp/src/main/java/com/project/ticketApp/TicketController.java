@@ -19,8 +19,9 @@ public class TicketController {
         //if not refundable, call nonrefundable in ticketgui
         //if refundable, get price from ticket and generate credit
         //place credit in credit singleton
-        //
+        //use ticket singleton to delete ticket
+        //get credit code from credit
+        //call displayrefundcode in ticketgui, passing in credit code
     }
-    private void makeGUI(Ticket ticket){}
 
 }

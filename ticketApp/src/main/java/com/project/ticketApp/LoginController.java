@@ -1,6 +1,6 @@
 package com.project.ticketApp;
 //stubs done
-public class LoginController {
+public class LoginController implements PaymentObserver{
     private MainController parentController;
     private RegisteredUser user;
     private LoginGUI gui;
@@ -16,5 +16,10 @@ public class LoginController {
     public void guestLogin(){
         //calledby logingui when logging in as regular user
         //call loginsuccess in main controller, passing in null
+    }
+    @Override
+    public void paymentGood() {
+        // 
+        
     }
 }
