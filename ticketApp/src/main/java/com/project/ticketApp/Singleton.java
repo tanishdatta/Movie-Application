@@ -25,7 +25,7 @@ public abstract class Singleton<E>{
         
     }
 
-    public int getNextID(){
+    public  int getNextID(){
         return (Integer) null;
     }
     private void initConnection(){

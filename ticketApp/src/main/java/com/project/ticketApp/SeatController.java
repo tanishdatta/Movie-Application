@@ -1,9 +1,5 @@
 package com.project.ticketApp;
 
-<<<<<<< Updated upstream
-public class SeatController {
-
-=======
 public class SeatController implements PaymentObserver{
     private Showtime showtime;
     private int ticketPrice;
@@ -32,5 +28,4 @@ public class SeatController implements PaymentObserver{
         //show confirmation dialog
         
     }
->>>>>>> Stashed changes
 }

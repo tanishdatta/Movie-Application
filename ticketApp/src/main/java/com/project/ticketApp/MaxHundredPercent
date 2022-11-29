@@ -3,8 +3,10 @@ package com.project.ticketApp;
 public class MaxHundredPercent implements SeatCapStrategy{
 
 	@Override
-	public boolean allowSeatBooking() {
+	public boolean allowSeatBooking(ArrayList<ArrayList<Boolean>> seatTable) {
+		//check % of seat book algorith
 		// TODO Auto-generated method stub
+		//return true if less than 100%
 		return false;
 	}
 
