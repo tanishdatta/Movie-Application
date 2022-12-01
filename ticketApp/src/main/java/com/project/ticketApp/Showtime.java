@@ -18,4 +18,7 @@ public class Showtime {
    public Showtime(ArrayList<ArrayList<Boolean>> seatOccupied){
        this.seatOccupied = seatOccupied;
    }
+   public LocalDateTime getTime(){
+        return time;
+   }
 }
