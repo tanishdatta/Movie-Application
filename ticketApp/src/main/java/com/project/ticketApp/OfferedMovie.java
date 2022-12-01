@@ -6,12 +6,17 @@ public class OfferedMovie {
 private Movie movie; 
 private ArrayList<Showtime> showtimes;
 
+public OfferedMovie(ArrayList<Showtime> showtimes, Movie movie){
+    this.showtimes = showtimes;
+    this.movie = movie;
+}
 public ArrayList <Showtime> getShowtimes(){
     return showtimes; 
 }
-public OfferedMovie(ArrayList<Showtime> showtimes){
-    this.showtimes = showtimes;
+public Movie getMovie(){
+    return movie;
 }
+
 public void addShowtime(Showtime showtime){
     this.showtimes.add(showtime);
 }
