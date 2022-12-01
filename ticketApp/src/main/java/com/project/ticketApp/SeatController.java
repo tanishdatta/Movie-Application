@@ -24,6 +24,7 @@ public class SeatController implements PaymentObserver{
         this.showtime = showtime;
         this.user = user;
         ArrayList<ArrayList<Boolean>> SeatTable = showtime.getSeatArray();
+        
 
     }
     public void selectSeat(int xCoord, int yCoord){
@@ -35,8 +36,9 @@ public class SeatController implements PaymentObserver{
                 
                 if(  y == yCoord && x == xCoord){
                     if(showtime.getSeatArray().get(y).get(x) == false){
-                        showtime.setSeatOccupied(xCoord, yCoord);
-                        new PaymentController(user, ticketPrice);
+                        
+                        new PaymentController(user, ticketPrice);// pay first then update array list in show time
+                        showtime.setSeatOccupied(xCoord, yCoord);// updates showtime arraylist
                     }
                     else{
                         //change this to is display it to seatGUI instead
