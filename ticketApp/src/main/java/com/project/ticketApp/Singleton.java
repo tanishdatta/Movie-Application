@@ -13,8 +13,7 @@ public abstract class Singleton<E>{
 
     }
 
-    public void initConnection()
-  {
+    public void initConnection(){
        
       try{
           con = DriverManager.getConnection("jdbc:mysql://localhost/tracker", "athlete", "cpsc");
@@ -23,7 +22,7 @@ public abstract class Singleton<E>{
       catch (SQLException e) {
           e.printStackTrace();
       }   
-  }
+    }
 
     
 }
