@@ -16,5 +16,6 @@ public class SeatGUI {
 
     public void selectSeat(int xCoord, int yCoord){
         //call seatController passing in the coordinates
+        parentController.selectSeat(xCoord, yCoord);
     }
 }
