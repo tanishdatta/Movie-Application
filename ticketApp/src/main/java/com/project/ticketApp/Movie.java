@@ -3,18 +3,18 @@ package com.project.ticketApp;
 import java.time.LocalDate;
 
 public class Movie {
-private LocalDate releaseDate;
+private LocalDate announcementDate;
 private String movieName; 
 
 //Constructor
 public Movie(LocalDate releaseDate, String movieName){
-    this.releaseDate = releaseDate;
+    this.announcementDate = releaseDate;
     this.movieName = movieName;
 }
 
 //getters
-public LocalDate getReleasedDate(){
-    return releaseDate;
+public LocalDate getAnnouncementDate(){
+    return announcementDate;
 }
 
 public String getMovieName(){

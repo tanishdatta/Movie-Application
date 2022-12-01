@@ -10,6 +10,8 @@ public class MainScreenGUI extends VerticalLayout{
 
     public MainScreenGUI(ArrayList<Theatre> theatreList, MainController parentController){
         //set parent control
+        //Build a numberfield for ticketcode
+        //View ticket button
         //build combobox of theatres
         //build select button for combobox
     }

@@ -1,26 +1,37 @@
 package com.project.ticketApp;
 
-public class PaymentSingleton extends Singleton<Payment> {
+public class TicketsSingleton extends Singleton<Ticket> {
 
-    private static PaymentSingleton instance;
+    private static TicketsSingleton instance;
 
-    public static PaymentSingleton getInstance(){
+    public static TicketsSingleton getInstance(){
         return instance;
     }
-    public void createPayment(int dollarAmount, int creditCardNO, String cardHolderName){
-        //Make payment object
-    }
-    private PaymentSingleton(){
+
+    private TicketsSingleton(){
 
     }
+
+    public Ticket verifyTicket(int ticketID){
+        //if ticket id is in arr than return that ticket
+        //else return null
+        return null;
+    }
+
+    public Ticket createTicket(Showtime showtime){
+        //makes a ticket based on showtime and adds it to the database and to the arraylist
+        return null;
+    }
+
+
     public int getNextID() {
         int maybeID = arr.size();
         int nextID;
 
         while(true) {
             nextID = maybeID;
-            for (Payment e : arr) {
-                if (e.getPaymentID() == maybeID) {
+            for (Ticket e : arr) {
+                if (e.getTicketID() == maybeID) {
                     maybeID++;
                 }
             }
@@ -36,5 +47,4 @@ public class PaymentSingleton extends Singleton<Payment> {
         //if not keep incrementing one until valid ID found
         return nextID;
     }
-    
 }

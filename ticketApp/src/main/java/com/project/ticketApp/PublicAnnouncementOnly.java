@@ -6,7 +6,8 @@ public class PublicAnnouncementOnly implements MovieFilterStrategy{
 
 	@Override
 	public ArrayList<OfferedMovie> filterMovies(ArrayList<OfferedMovie> inputList) {
-		// TODO Auto-generated method stub
+		//If announcementDate is later than today take it out
+		//return the list
 		return null;
 	}
 

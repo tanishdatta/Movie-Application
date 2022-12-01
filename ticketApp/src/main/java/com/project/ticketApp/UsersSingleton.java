@@ -2,30 +2,44 @@ package com.project.ticketApp;
 
 public class UsersSingleton extends Singleton<RegisteredUser> {
 
-    public Boolean verfiedLogin(String username, String password){
+    private static UsersSingleton instance;
+
+    public static UsersSingleton getInstance(){
+        return instance;
+    }
+
+    public void updateUserSubscription(RegisteredUser user){
+        //update lastpaid in database according to given user object
+        //call setlastpaid for that user
+    }
+
+    public RegisteredUser verifyLogin(String username, String password){
         //check in database if username and password map to a registered user entity
-        return false;
-
-    }
-
-    @Override
-    public void addObj(RegisteredUser obj) {
-        // TODO Auto-generated method stub
-        //add to database and arraylist
-        
-    }
-
-    //getters
-    @Override
-    public RegisteredUser getObj(int objID) {
-        // TODO Auto-generated method stub
         return null;
     }
 
-    @Override
     public int getNextID() {
-        // TODO Auto-generated method stub
-        return 0;
+        int maybeID = arr.size();
+        int nextID;
+
+        while(true) {
+            nextID = maybeID;
+            for (RegisteredUser e : arr) {
+                if (e.getUserID() == maybeID) {
+                    maybeID++;
+                }
+            }
+            if(maybeID != nextID){
+                nextID = maybeID;
+            }
+            else{
+                break;
+            }
+        }
+        //counts number of objects in arraylist
+        //check if that number is already taken as id
+        //if not keep incrementing one until valid ID found
+        return nextID;
     }
     
 }

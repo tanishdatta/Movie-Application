@@ -7,4 +7,11 @@ public class Theatre {
     public ArrayList<OfferedMovie> getAvailableMovies(){
         return this.availableMovies;
     }
+    public void addOfferedMovie(OfferedMovie movie){
+        availableMovies.add(movie);
+    }
+
+    public Theatre(ArrayList<OfferedMovie> availableMovies){
+        this.availableMovies = availableMovies;
+    }
 }

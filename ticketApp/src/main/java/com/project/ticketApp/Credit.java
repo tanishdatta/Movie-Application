@@ -6,24 +6,22 @@ import java.sql.Connection;
 public class Credit{
     private int dollarAmount;
     private int creditCode;
-    private Connection con;
 
-    //Contstructor 
-    public Credit(int dollarAmount){
+    public Credit(int dollarAmount, int creditCode){
         this.dollarAmount = dollarAmount;
-        this.creditCode = CreditSingleton.getInstance().getNextID();
+        this.creditCode = creditCode;
         //call init connection
     }
 
     //dollar amount =- amount and change in databases
     public void subtractDollars(int amount){
         dollarAmount -= amount;
-        //change in databases
+
     }
 
     public void addDollars(int amount){
         dollarAmount += amount;
-        //change in databases
+
     }
 
     //getters
@@ -35,7 +33,4 @@ public class Credit{
         return this.creditCode;
     }
 
-    private void initConnection(){
-        
-    }
 }

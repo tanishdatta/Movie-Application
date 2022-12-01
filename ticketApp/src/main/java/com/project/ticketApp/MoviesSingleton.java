@@ -1,17 +1,18 @@
 package com.project.ticketApp;
 
 public class MoviesSingleton extends Singleton<Movie>{
+    private static MoviesSingleton instance;
 
-    @Override
-    public void addObj(Movie obj) {
-        // TODO Auto-generated method stub
-        super.addObj(obj);
+    public static MoviesSingleton getInstance(){
+        return instance;
+    }
+    private MoviesSingleton(){
+        //Instantiate movie objects in arraylist based on database
     }
 
-    @Override
-    public Movie getObj(int objID) {
-        // TODO Auto-generated method stub
-        return super.getObj(objID);
+    public Movie getMovie(String movieName){
+        //Returns Movie object in array that corresponds with given String
+        return null;
     }
     
 }

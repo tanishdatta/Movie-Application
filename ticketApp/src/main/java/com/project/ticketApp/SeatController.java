@@ -22,6 +22,7 @@ public class SeatController implements PaymentObserver{
     }
     public void selectSeat(int xCoord, int yCoord){
         //called by seatgui
+        //set x and y coordinates
         //instantiate payment controller, passing in user and price
     }
     @Override

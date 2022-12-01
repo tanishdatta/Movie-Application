@@ -14,7 +14,7 @@ public class MainController extends VerticalLayout{
     }
     public void loginSuccess(RegisteredUser user){
         //called by Logincontroller when successfully logged in
-        //user is null when logging in as reg user
+        //user is null when logging in as regular user
         //get arraylist of theatre objects from TheatresSingleton
         //this.user = user;
         //instantiate and open MainControllerGUI with arraylist of theatre objs and registereduser obj 
@@ -29,5 +29,10 @@ public class MainController extends VerticalLayout{
     public void selectShowtime(Showtime showtime){
         //called by MainScreenGUI when showtime selected
         //instantiate and open seatcontroller, passing in user and showtime objs
+    }
+
+    public void viewTicket(int ticketCode){
+        //instantiates ticketController
+        //calls viewTicket in ticketController and pass in ticketCode
     }
 }
