@@ -8,6 +8,7 @@ public class MainController extends VerticalLayout{
     private RegisteredUser user;
     private MovieFilterStrategy filterstrat;//strategy pattern for filtering publicly available and/or early access movies
     private MainScreenGUI gui;
+    private SeatCapStrategy seatCapStrat;//strategy pattern for determining if showtime is open for booking depending on % of seats abailable
 
     public MainController(){
         //instantiate Logincontroller
@@ -28,7 +29,10 @@ public class MainController extends VerticalLayout{
     }
     public void selectShowtime(Showtime showtime){
         //called by MainScreenGUI when showtime selected
-        //instantiate and open seatcontroller, passing in user and showtime objs
+        //set seatCapStrat depending on whether showtime is currently in early access
+        //use seatCapStrat to decide if showtime can be booked
+        //if not, send error message
+        // else, instantiate and open seatcontroller, passing in user and showtime objs
     }
 
     public void viewTicket(int ticketCode){
