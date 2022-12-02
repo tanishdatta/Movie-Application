@@ -13,23 +13,28 @@ public class Showtime {
     this.time = time;
     this.movie = movie;
    }
+
+   public Showtime(ArrayList<ArrayList<Boolean>> seatOccupied){
+    this.seatOccupied = seatOccupied;
+    }
+
    public ArrayList<ArrayList<Boolean>> getSeatArray(){
     return this.seatOccupied;
-   }
-   public void setSeatOccupied(int x, int y){// true means occupied
+    }
+
+   public void setSeatOccupied(int xCoord, int yCoord){// true means occupied
        //set designated seat as true
        //For seatOccupied arraylist of boolean objects.
        // Designates which seats are free and which are empty. o
        // Outside arraylist is y axis and inside arraylist is x axis
-   }
+       for ( int y = 0; y < seatOccupied.size(); y++ ){
+        for(int x = 0; x< seatOccupied.get(y).size(); x++){
 
-   public LocalDateTime getTime(){
-        return time;
-   }
-   public OfferedMovie getMovie(){
-    return movie;
-   }
-   public void setMovie(OfferedMovie movie){
-    this.movie = movie;
-   }
+            if ( x == xCoord && y == yCoord){
+                seatOccupied.get(y).set(x, true); 
+            }
+        }
+       }
+    }
+
 }
