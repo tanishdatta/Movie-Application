@@ -13,6 +13,12 @@ public class Showtime {
     this.time = time;
     this.movie = movie;
    }
+   public LocalDateTime getTime(){
+    return time;
+   }
+   public OfferedMovie getMovie(){
+    return movie;
+   }
 
    public Showtime(ArrayList<ArrayList<Boolean>> seatOccupied){
     this.seatOccupied = seatOccupied;
