@@ -14,6 +14,7 @@ public class Payment {
         this.creditCardNo = creditCardNo;
         this.cardholderName = cardholderName;
         this.paymentID = paymentID;
+        this.date = LocalDate.now();
     }
     public int getPaymentID(){
         return this.paymentID;

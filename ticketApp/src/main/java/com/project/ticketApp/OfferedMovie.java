@@ -3,7 +3,8 @@ package com.project.ticketApp;
 import java.util.ArrayList;
 
 public class OfferedMovie {
-private Movie movie; 
+private Movie movie;
+private Theatre theatre; 
 private ArrayList<Showtime> showtimes;
 
 public OfferedMovie(ArrayList<Showtime> showtimes, Movie movie){
@@ -19,6 +20,12 @@ public Movie getMovie(){
 
 public void addShowtime(Showtime showtime){
     this.showtimes.add(showtime);
+}
+public void setTheatre(Theatre theatre){
+    this.theatre = theatre;
+}
+public Theatre getTheatre(){
+    return theatre;
 }
 
 }

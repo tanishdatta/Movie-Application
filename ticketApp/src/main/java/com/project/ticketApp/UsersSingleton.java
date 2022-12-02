@@ -18,7 +18,7 @@ public class UsersSingleton extends Singleton<RegisteredUser> {
         return null;
     }
 
-    public int getNextID() {
+    /*public int getNextID() {
         int maybeID = arr.size();
         int nextID;
 
@@ -40,6 +40,6 @@ public class UsersSingleton extends Singleton<RegisteredUser> {
         //check if that number is already taken as id
         //if not keep incrementing one until valid ID found
         return nextID;
-    }
+    }*/
     
 }
