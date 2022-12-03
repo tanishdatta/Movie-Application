@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-import org.apache.catalina.User;
+// import org.apache.catalina.User;
 
 public class UsersSingleton extends Singleton<RegisteredUser> {
 
