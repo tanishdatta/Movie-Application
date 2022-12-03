@@ -9,12 +9,12 @@ public class Payment {
     private LocalDate date;
     private int paymentID;
 
-    public Payment(int dollarAmount, int creditCardNo, String cardholderName, int paymentID){
+    public Payment(int dollarAmount, int creditCardNo, String cardholderName, int paymentID, LocalDate date){
         this.dollarAmount = dollarAmount;
         this.creditCardNo = creditCardNo;
         this.cardholderName = cardholderName;
         this.paymentID = paymentID;
-        this.date = LocalDate.now();
+        this.date = date;
     }
     public int getPaymentID(){
         return this.paymentID;

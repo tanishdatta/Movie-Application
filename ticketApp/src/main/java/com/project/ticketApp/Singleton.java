@@ -10,18 +10,17 @@ public abstract class Singleton<E>{
     protected ArrayList<E> arr;
 
     protected Singleton(){
-
+        arr = new ArrayList<E>();
+        initConnection();
     }
 
     public void initConnection(){
-       
-      try{
-          con = DriverManager.getConnection("jdbc:mysql://localhost/tracker", "athlete", "cpsc");
-          
-      } 
-      catch (SQLException e) {
-          e.printStackTrace();
-      }   
+        try{
+            con = DriverManager.getConnection("jdbc:mysql://localhost/ticketReservation_db", "root", "ensf"); 
+        } 
+        catch (SQLException e) {
+            e.printStackTrace();
+        }   
     }
 
     

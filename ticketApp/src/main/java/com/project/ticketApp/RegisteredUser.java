@@ -9,7 +9,7 @@ public class RegisteredUser {
     private String cardHolderName;
     private LocalDate lastPaid; //need ot connect ot databases somehow
 
-    public RegisteredUser(int userID, int creditCardNo, String cardHolderName){
+    public RegisteredUser(String username, int creditCardNo, String cardHolderName){
         this.username = username;
         this.creditCardNo = creditCardNo;
         this.cardHolderName = cardHolderName;
