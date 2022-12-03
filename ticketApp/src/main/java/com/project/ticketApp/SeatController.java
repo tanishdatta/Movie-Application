@@ -2,13 +2,16 @@ package com.project.ticketApp;
 
 import java.util.ArrayList;
 
+import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.html.Paragraph;
+
 public class SeatController implements PaymentObserver{
     private Showtime showtime;
     private int ticketPrice = 300;
     private RegisteredUser user;
     private int xCoord;
     private int yCoord;
-    private SeatCapStrategy seatCapStrat;
+    private SeatGUI seatgui;
 
     //needs to add itself to paymentObserver
 
@@ -18,12 +21,12 @@ public class SeatController implements PaymentObserver{
         //set showtime
         //set seatcapstrategy depending on whether or not user is null
         //get 2d arraylist from showtime
-        //check if showtime is bookable using seatCapStrat
         //if bookable, instantiate seatgui, passing in 2d arraylist and this
 
         this.showtime = showtime;
         this.user = user;
         ArrayList<ArrayList<Boolean>> SeatTable = showtime.getSeatArray();
+        seatgui = new SeatGUI(SeatTable, this);
         
 
     }
@@ -42,7 +45,9 @@ public class SeatController implements PaymentObserver{
                     }
                     else{
                         //change this to is display it to seatGUI instead
-                        System.out.println("Please pick another seat");
+                        Dialog notify = new Dialog();
+                        notify.add(new Paragraph("Please pick another seat"));
+                        notify.open();
                     }
                 }
             }

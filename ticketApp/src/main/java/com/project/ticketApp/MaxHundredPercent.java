@@ -22,7 +22,7 @@ public class MaxHundredPercent implements SeatCapStrategy {
 			return false;
 		}
 		else{
-			return false;
+			return true;
 		}
 		
 	}

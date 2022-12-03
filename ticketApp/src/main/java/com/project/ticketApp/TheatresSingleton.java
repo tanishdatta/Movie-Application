@@ -16,9 +16,17 @@ public class TheatresSingleton extends Singleton<Theatre> {
                 //don't forget to also pass the offeredmovie into the showtime object so there's two-way aggregation
             //Instantiate offeredmovie object with movie object and showtimes in theatre objects array (availableMovies)
             //holy fuck you also have to pass the theatre back into the offeredmovie to get two way aggregation again
+
+
     }
     public static TheatresSingleton getInstance(){
+        
+        if (instance == null) {
+            instance = new TheatresSingleton();
+        }
+
         return instance;
+        
     }
     public ArrayList<Theatre> getAllTheatres(){
         return arr;
