@@ -39,9 +39,14 @@ public class SeatController implements PaymentObserver{
                 
                 if(  y == yCoord && x == xCoord){
                     if(showtime.getSeatArray().get(y).get(x) == false){
-                        
-                        new PaymentController(user, ticketPrice);// pay first then update array list in show time
-                        showtime.setSeatOccupied(xCoord, yCoord);// updates showtime arraylist
+
+                        if (user == null){
+                            new PaymentController(ticketPrice, this);// guest user pays first then update array list in show time
+                        }
+                        else {
+                            new PaymentController(user, ticketPrice, this);// RU pays first then update array list in show time
+                        }
+                       
                     }
                     else{
                         //change this to is display it to seatGUI instead
@@ -55,8 +60,14 @@ public class SeatController implements PaymentObserver{
     }
     @Override
     public void paymentGood() {
-        //call selectSeat in showtime obj, passing in coords
+        //call showtime obj, passing in coords
         //show confirmation dialog
         
+        showtime.setSeatOccupied(xCoord, yCoord);// updates showtime arraylist
+
+        Dialog notify = new Dialog();
+        notify.add(new Paragraph("Seat chosen"));
+        notify.open();
     }
+    
 }
