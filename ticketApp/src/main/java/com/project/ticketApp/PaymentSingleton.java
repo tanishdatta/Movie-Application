@@ -25,7 +25,7 @@ public class PaymentSingleton extends Singleton<Payment> {
         iStatement.setDate(4, Date.valueOf(LocalDate.now()));
         iStatement.executeQuery();
 
-        PreparedStatement selectStatement = con.prepareStatement("SELECT * FROM PAYMENT ORDER BY payment_id DESC LIMIT 1 WHERE credit_card_holder = ?;");
+        PreparedStatement selectStatement = con.prepareStatement("SELECT * FROM PAYMENT WHERE credit_card_holder = ? ORDER BY payment_id DESC LIMIT 1");
         selectStatement.setString(1, cardHolderName);
         ResultSet rs = selectStatement.executeQuery();
         
