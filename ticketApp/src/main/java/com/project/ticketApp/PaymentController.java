@@ -13,13 +13,13 @@ public class PaymentController {
     private PaymentObserver paymentObserver;
 
     //constructor
-    public PaymentController(RegisteredUser user, int dollarAmount){
+    public PaymentController(RegisteredUser user, int dollarAmount, SeatController seatController){
         this.user =user;
         this.dollarAmount = dollarAmount;
 
     }
 
-    public PaymentController(int dollarAmount){
+    public PaymentController(int dollarAmount,SeatController seatController){
         this.dollarAmount = dollarAmount;
     }
 
