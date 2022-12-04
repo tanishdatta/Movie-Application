@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class TicketsSingleton extends Singleton<Ticket> {
@@ -79,33 +80,30 @@ public class TicketsSingleton extends Singleton<Ticket> {
         this.arr.remove(ticket);
     }
 
-    public Ticket createTicket(Showtime showtime){
+    public Ticket createTicket(int xCoord, int yCoord, Showtime showtime) throws SQLException{
         //makes a ticket based on showtime and adds it to the database and to the arraylist
 
         // commented for now because im not sure how to get the x, y coord
-        // int xCoord = ; 
-        // int yCoord = ;
-        // String movie_name = showtime.getMovie().getMovie().getMovieName();
-        // String theatre_name = showtime.getMovie().getTheatre().getName();
-        // int price = 15;
+        String movie_name = showtime.getMovie().getMovie().getMovieName();
+        String theatre_name = showtime.getMovie().getTheatre().getName();
+        int price = 15;
         
 
-        // PreparedStatement iStatement = con.prepareStatement("INSERT INTO ticket (showtime_time, theatre_name, movie_name, seatXcoord, seatYcoord, price) VALUES (?, ?, ?, ?, ?, ?);");
-        // iStatement.setTime(1, theatre_name);
-        // iStatement.setString(2, theatre_name);
-        // iStatement.setString(3, movie_name);
-        // iStatement.setInt(4, xCoord);
-        // iStatement.setInt(5, yCoord);
-        // iStatement.setInt(6, price);
-        // iStatement.executeQuery();
+        PreparedStatement iStatement = con.prepareStatement("INSERT INTO ticket (showtime_time, theatre_name, movie_name, seatXcoord, seatYcoord, price) VALUES (?, ?, ?, ?, ?, ?);");
+        iStatement.setTimestamp(1, Timestamp.valueOf(showtime.getTime()));
+        iStatement.setString(2, theatre_name);
+        iStatement.setString(3, movie_name);
+        iStatement.setInt(4, xCoord);
+        iStatement.setInt(5, yCoord);
+        iStatement.setInt(6, price);
+        iStatement.executeQuery();
 
-        // PreparedStatement selectStatement = con.prepareStatement("SELECT * FROM ticket ORDER BY ticket_id DESC LIMIT 1;");
-        // ResultSet rs = selectStatement.executeQuery();
+        PreparedStatement selectStatement = con.prepareStatement("SELECT * FROM ticket ORDER BY ticket_id DESC LIMIT 1;");
+        ResultSet rs = selectStatement.executeQuery();
 
-        // Ticket newTicket = new Ticket(xCoord, yCoord, showtime, rs.getInt("ticket_id"));
-        // arr.add(newTicket);
-        // return newTicket;
-        return null;
+        Ticket newTicket = new Ticket(xCoord, yCoord, showtime, rs.getInt("ticket_id"));
+        arr.add(newTicket);
+        return newTicket;
     }
 
 
