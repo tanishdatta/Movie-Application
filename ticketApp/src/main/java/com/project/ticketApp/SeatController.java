@@ -2,6 +2,8 @@ package com.project.ticketApp;
 
 import java.util.ArrayList;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.CloseAction;
+
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Paragraph;
 
@@ -27,6 +29,7 @@ public class SeatController implements PaymentObserver{
         this.user = user;
         ArrayList<ArrayList<Boolean>> SeatTable = showtime.getSeatArray();
         seatgui = new SeatGUI(SeatTable, this);
+        seatgui.open();
         
 
     }
@@ -67,6 +70,7 @@ public class SeatController implements PaymentObserver{
 
         Dialog notify = new Dialog();
         notify.add(new Paragraph("Seat chosen"));
+        notify.addDialogCloseActionListener(CloseAction -> seatgui.close());
         notify.open();
     }
     

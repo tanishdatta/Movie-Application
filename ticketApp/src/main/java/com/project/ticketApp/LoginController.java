@@ -16,6 +16,7 @@ public class LoginController implements PaymentObserver{
     public LoginController(MainController parentController){
         this.parentController = parentController;
         this.gui = new LoginGUI(this);
+        gui.open();
         //instantiate and open logingui, passing in this
     }
     public void verifyLogin(String username, String password){
@@ -54,6 +55,7 @@ public class LoginController implements PaymentObserver{
         //called by logingui when logging in as regular user
         //call loginsuccess in main controller, passing in null
         parentController.loginSuccess(null);
+        gui.close();
     }
 
     @Override

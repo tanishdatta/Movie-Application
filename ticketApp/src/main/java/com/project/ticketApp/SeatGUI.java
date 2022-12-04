@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 //stub finished 
-public class SeatGUI {
+public class SeatGUI extends Dialog{
     private SeatController parentController;
 
     //start components...
@@ -63,6 +64,7 @@ public class SeatGUI {
                 }
             }).setHeader(String.valueOf(column));
         }
+        add(seatGrid);
     }
     //end helper functions
 }

@@ -18,6 +18,7 @@ public class PaymentController {
         this.dollarAmount = dollarAmount;
         this.paymentObserver = paymentObserver;
         this.gui = new PaymentGUI(this,this.dollarAmount);
+        gui.open();
 
     }
 

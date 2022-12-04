@@ -12,10 +12,10 @@ public class LoginGUI extends Dialog {
     private LoginController parentController;
     
     //start components...
-    TextField usernameTF = new TextField();
-    PasswordField passwordField = new PasswordField();
-    Button login = new Button();
-    Button loginGuest = new Button();
+    TextField usernameTF = new TextField("Username");
+    PasswordField passwordField = new PasswordField("Password");
+    Button login = new Button("Login");
+    Button loginGuest = new Button("Login as guest");
     //end components
 
     

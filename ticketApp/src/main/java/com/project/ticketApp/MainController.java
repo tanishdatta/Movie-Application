@@ -30,6 +30,7 @@ public class MainController extends VerticalLayout{
         try {
             ArrayList<Theatre> theatres = TheatresSingleton.getInstance().getAllTheatres();
             this.gui = new MainScreenGUI(theatres, this);
+            add(gui);
         }catch(Exception e){
             e.printStackTrace();
             System.exit(1);
