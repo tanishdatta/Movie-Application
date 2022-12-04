@@ -42,5 +42,8 @@ public class Showtime {
         }
        }
     }
+public void setMovie(OfferedMovie offeredMovie) {
+    this.movie = offeredMovie;
+}
 
 }

@@ -10,6 +10,9 @@ private ArrayList<Showtime> showtimes;
 public OfferedMovie(ArrayList<Showtime> showtimes, Movie movie){
     this.showtimes = showtimes;
     this.movie = movie;
+    for (Showtime s : showtimes){
+        s.setMovie(this);
+    }
 }
 public ArrayList <Showtime> getShowtimes(){
     return showtimes; 
