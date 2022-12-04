@@ -9,21 +9,25 @@ public class PaymentController {
     private PaymentGUI gui;
     private Credit credit;
     private int dollarAmount;
-    private int creditDifference; //(original $) minus (credit $)
     private PaymentObserver paymentObserver;
+    private int creditDifference;
 
     //constructor
-    public PaymentController(RegisteredUser user, int dollarAmount, SeatController seatController){
+    public PaymentController(RegisteredUser user, int dollarAmount, PaymentObserver paymentObserver){
         this.user =user;
         this.dollarAmount = dollarAmount;
+        this.paymentObserver = paymentObserver;
+        this.gui = new PaymentGUI(this,this.dollarAmount);
 
     }
 
-    public PaymentController(int dollarAmount,SeatController seatController){
+    public PaymentController(int dollarAmount, PaymentObserver paymentObserver){
         this.dollarAmount = dollarAmount;
+        this.paymentObserver = paymentObserver;
+        this.credit = null;
     }
 
-    public void pay(int cardNumber, String cardHolder){
+    public void pay(int cardNumber, String cardHolder) {
         //called by paymentGUI
         //notionally verify card info...
         Dialog notionalVerification = new Dialog();
@@ -33,26 +37,65 @@ public class PaymentController {
         notionalVerification.add(new Paragraph("Card info good"));
         notionalVerification.add(new Paragraph("Modularity babyyyyyyy"));
         notionalVerification.open();
-        
+
+        if(creditDifference < 0){
+            this.credit.subtractDollars(dollarAmount);
+            Dialog notify = new Dialog();
+            notify.add(new Paragraph("Your credit pays for the entire purchase"));
+            notify.add(new Paragraph("Your new credit balance is: " + this.credit.getDollars()));
+            notify.open();
+            this.paymentObserver.paymentGood();
+        }
+        else{
+            try {
+                CreditSingleton.getInstance().deleteCredit(this.credit);
+                this.credit = null;
+                PaymentSingleton.getInstance().createPayment(creditDifference, cardNumber, cardHolder);
+                Dialog notify = new Dialog();
+                notify.add(new Paragraph("Payment went through"));
+                notify.open();
+                this.paymentObserver.paymentGood();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
+        }
+
         //create payment object passing in the amount to pay (taking into account creditDifference)
-            //and credit card info
+        //and credit card info
         //update/deletes credit from creditSingleton depending on whether creditDifference is >=0
 
         //Display a notification confirming payment
         //notify payment observer that payment is good to go
         //close payment gui
+        this.gui.close();
+
+
+
     }
 
-    public void setCreditCode(int creditCode){
-        // gets credit code from paymentGUI which the user inputs
-        //Get credit object from creditSingleton
-        //if there is already a Credit in this controller, replace it(make sure you can't get an infinite refund hack)
-        //calculate credit difference and assign in to creditDifference memberVariable
-                // make sure to recalculate credit difference if replacing Credit object
-        //update gui with new dollarAmount
-    }
+        public void setCreditCode (int creditCode){
 
-    public void setObserver(PaymentObserver Observer){
-        //Self-Explanatory you got this
+            try {
+                this.credit = CreditSingleton.getInstance().getCredit(creditCode);
+            }catch(Exception e){
+                e.printStackTrace();
+                System.exit(1);
+            }
+
+            this.creditDifference = this.dollarAmount - this.credit.getDollars();
+            if(creditDifference < 0) {
+                this.gui.setDollarAmount(0);
+            }
+            else{
+                this.gui.setDollarAmount(this.dollarAmount);
+            }
+            // gets credit code from paymentGUI which the user inputs
+            //Get credit object from creditSingleton
+            //if there is already a Credit in this controller, replace it(make sure you can't get an infinite refund hack)
+            //calculate credit difference and assign in to creditDifference memberVariable
+            // make sure to recalculate credit difference if replacing Credit object
+            //update gui with new dollarAmount
+        }
+
     }
-}

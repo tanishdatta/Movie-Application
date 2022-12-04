@@ -1,20 +1,57 @@
 package com.project.ticketApp;
 
+import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.html.Paragraph;
+
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDateTime;
+
 public class TicketController {
     private MainController parentController;
     private TicketGUI gui;
     private Ticket ticket;
 
     public TicketController(MainController parentController){
+
         this.parentController = parentController;
     }
     public void viewTicket(int ticketID){
+        try {
+            this.ticket = TicketsSingleton.getInstance().verifyTicket(ticketID);
+            if(ticket.equals(null)){
+                Dialog notify = new Dialog();
+                notify.add(new Paragraph("Ticket Does Not Exist"));
+                notify.open();
+            }
+            else {
+                this.gui = new TicketGUI(this, ticket);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            System.exit(1);
+        }
         //called by main controller
         //verify ticketID using ticketsingleton (receive ticket obj)
         //set this.ticket = shit you got from singleton
         //instantiate ticketGUI, passing in this and ticket
     }
     public void refundTicket(){
+        try {
+            if(!ticket.getShowtime().getTime().isBefore(ChronoLocalDateTime.from(LocalDate.now().plusDays(3)))){
+                Dialog notify = new Dialog();
+                notify.add(new Paragraph("Ticket is refunded"));
+                notify.open();
+                Credit credit = CreditSingleton.getInstance().createCredit(ticket.getPrice());
+                this.gui.displayRefundCode(credit.getCreditCode(), ticket.getPrice());
+                TicketsSingleton.getInstance().deleteTicket(ticket);
+            }
+            else{
+                this.gui.nonRefundable();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+            System.exit(1);
+        }
         //called by ticket gui
         //verify if ticket is refundable (not within 72 hrs)
             //note: ticket should already have been set by viewticket

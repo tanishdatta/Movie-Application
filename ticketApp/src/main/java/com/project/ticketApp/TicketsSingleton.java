@@ -75,6 +75,10 @@ public class TicketsSingleton extends Singleton<Ticket> {
         return null;
     }
 
+    public void deleteTicket(Ticket ticket){
+        this.arr.remove(ticket);
+    }
+
     public Ticket createTicket(Showtime showtime){
         //makes a ticket based on showtime and adds it to the database and to the arraylist
 
