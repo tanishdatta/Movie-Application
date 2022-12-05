@@ -9,12 +9,14 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
+
+import ch.qos.logback.core.net.SyslogOutputStream;
 //stub finished 
 public class SeatGUI extends Dialog{
     private SeatController parentController;
 
     //start components...
-    Grid<ArrayList<Boolean>> seatGrid = new Grid<ArrayList<Boolean>>();
+    Grid<RowArray> seatGrid = new Grid<RowArray>();
     //end components...
 
     //start important functs..
@@ -39,21 +41,28 @@ public class SeatGUI extends Dialog{
     //start helper functions..
     private void buildGrid(ArrayList<ArrayList<Boolean>> seatArray) {
         //holy fuck here we go..
-        seatGrid.setItems(seatArray);
+        ArrayList<RowArray> arraytwo = new ArrayList<RowArray>();
+        int fuck = 0;
+        for (ArrayList<Boolean> a : seatArray){
+            arraytwo.add(new RowArray(a, fuck++));
+        }
+        seatGrid.setItems(arraytwo);
         //first make y axis labels
-        seatGrid.addColumn(row -> {
-            System.out.println(seatArray.indexOf(row));
-            return IntToChar.convert(seatArray.indexOf(row));
+        seatGrid.addColumn(row ->{
+            return IntToChar.convert(row.getrowNum());
         }).setAutoWidth(true).setFlexGrow(1);
+
+        
         //then make each column with buttons
         for (int c = 0; c<10; c++){
             int column = c;
             seatGrid.addComponentColumn(row ->{
-                if (row.get(column) == false){
+                if (row.getBool(column) == false){
                     Button seat = new Button(new Icon(VaadinIcon.USER));
                     seat.addThemeVariants(ButtonVariant.LUMO_ICON);
                     seat.getElement().setAttribute("aria-label", "Book seat");
-                    seat.addClickListener(ClickEvent ->{selectSeat(column, seatArray.indexOf(row));});
+                    seat.addClickListener(ClickEvent ->{selectSeat(column, row.getrowNum());});
+                    // System.out.print(row.getrowNum());
                     return seat;
                 }
                 else{

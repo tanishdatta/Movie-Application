@@ -1,4 +1,5 @@
 package com.project.ticketApp;
+import java.sql.SQLException;
 //stub finished
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -37,7 +38,13 @@ public class Showtime {
         for(int x = 0; x< seatOccupied.get(y).size(); x++){
 
             if ( x == xCoord && y == yCoord){
-                seatOccupied.get(y).set(x, true); 
+                seatOccupied.get(y).set(x, true);
+                try{
+                    System.out.println(movie.getMovie().getMovieName());
+                    TheatresSingleton.getInstance().setSeat(movie.getMovie().getMovieName(),movie.getTheatre().getName(), time, xCoord, yCoord);
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
             }
         }
        }

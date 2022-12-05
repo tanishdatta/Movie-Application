@@ -40,6 +40,7 @@ public class MainScreenGUI extends VerticalLayout{
         parentController.loadTheatreMovies(theatre);//call loadTheatreMovies in main controller
     }
     private void selectShowtime(Showtime showtime){//called when user clicks selects a showtime in the accordion
+        
         parentController.selectShowtime(showtime);
     }
     public void loadTheatreMovies(ArrayList<OfferedMovie> movieList){//called by main controller when 
@@ -59,7 +60,9 @@ public class MainScreenGUI extends VerticalLayout{
             "HH:mm")).setHeader("Time");
             omGrid.addComponentColumn(st -> {
                 Button getTick = new Button("Get tickets");
-                getTick.addClickListener(ClickEvent -> {selectShowtime(st);});
+                getTick.addClickListener(ClickEvent -> {selectShowtime(st);
+                    System.out.println("fuck you cunt");});
+        
                 return getTick;
             });
             omLayout.add(omGrid);
@@ -97,4 +100,7 @@ public class MainScreenGUI extends VerticalLayout{
         add(theatreGroup);
     }
     //end helper functs
+    public void refresh() {
+        parentController.loadTheatreMovies(theatreCB.getValue());
+    }
 }

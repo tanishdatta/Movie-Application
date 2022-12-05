@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class TheatresSingleton extends Singleton<Theatre> {
@@ -129,6 +130,21 @@ public class TheatresSingleton extends Singleton<Theatre> {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+    public void setSeat(String moviename, String theatrename, LocalDateTime datetime, int xCoord, int yCoord){
+        try{
+            PreparedStatement makeSeat = con.prepareStatement("UPDATE Seat SET status = ? WHERE theatre_name = ? AND movie_name = ? AND showtime_time = ? AND seatXcoord = ? AND seatYcoord = ?;");
+            makeSeat.setBoolean(1, true);
+            makeSeat.setString(2, theatrename);
+            makeSeat.setString(3, moviename);
+            makeSeat.setTimestamp(4, Timestamp.valueOf(datetime));
+            makeSeat.setInt(5, xCoord);
+            makeSeat.setInt(6, yCoord);
+            
+            makeSeat.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
         }
     }
 

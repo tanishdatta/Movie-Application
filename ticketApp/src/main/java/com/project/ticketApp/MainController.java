@@ -58,16 +58,20 @@ public class MainController extends VerticalLayout{
         //call loadTheatreMovies in gui
     }
     public void selectShowtime(Showtime showtime){
+        
         //called by MainScreenGUI when showtime selected
         if(LocalDate.now().isBefore(showtime.getMovie().getMovie().getAnnouncementDate())){
             this.seatCapStrat = new MaxTenPercent();
+            
         }
         else{
             this.seatCapStrat = new MaxHundredPercent();
         }
         //set seatCapStrat depending on whether showtime is currently in early access
         if(this.seatCapStrat.allowSeatBooking(showtime.getSeatArray())){
-            SeatController seatController = new SeatController(this.user,showtime);
+            SeatController seatController = new SeatController(this.user,showtime, this);
+            
+
         }
         else{
             Dialog notify = new Dialog();
@@ -84,5 +88,8 @@ public class MainController extends VerticalLayout{
         ticketController.viewTicket(ticketCode);
         //instantiates ticketController
         //calls viewTicket in ticketController and pass in ticketCode
+    }
+    public void refreshGUI(){
+        gui.refresh();
     }
 }
