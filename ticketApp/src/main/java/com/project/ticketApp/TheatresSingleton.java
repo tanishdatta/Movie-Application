@@ -7,19 +7,19 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-import com.vaadin.flow.component.html.Pre;
-
 public class TheatresSingleton extends Singleton<Theatre> {
     private static TheatresSingleton instance;
 
     private TheatresSingleton()throws SQLException{
        initConnection();
        //do this once and comment it out lol
+       /* 
         populateSeats("Star Wars: Episode VII - The Force Awakens","WISH.com_cineplex", "2012-06-18 17:10:10");
         populateSeats("Avengers: Endgame","WISH.com_cineplex", "2012-06-18 13:10:10");
         populateSeats("Spider-Man: No Way Home","WISH.com_cineplex", "2012-06-18 10:00:00");
         populateSeats("Avatar","WISH.com_cineplex", "2012-06-18 06:00:00");
         populateSeats("Top Gun: Maverick","WISH.com_cineplex", "2012-06-18 20:00:00");
+        */
        //getting theatres
        PreparedStatement theatreQuery = con.prepareStatement("SELECT Name FROM Theatre;");
        ResultSet theatreSet = theatreQuery.executeQuery();
@@ -43,20 +43,22 @@ public class TheatresSingleton extends Singleton<Theatre> {
                 //making showtimes for each offeredmovie
                 Timestamp thisTime = timeSet.getTimestamp(1);
                 ArrayList<ArrayList<Boolean>> seatTable = new ArrayList<ArrayList<Boolean>>();
-                for (ArrayList<Boolean> row : seatTable){
-                    for (Boolean status : row){
-                        PreparedStatement seatQuery = con.prepareStatement("SELECT status FROM Seat WHERE theatre_name = ? AND movie_name = ? AND time = ? AND seatXcoord = ? AND seatYcoord = ?;");
+                for (int rowNum = 0; rowNum < 10; rowNum++){
+                    ArrayList<Boolean> row = new ArrayList<Boolean>();
+                    for (int colNum = 0; colNum < 10; colNum++){
+                        Boolean status = false;
+                        PreparedStatement seatQuery = con.prepareStatement("SELECT status FROM Seat WHERE theatre_name = ? AND movie_name = ? AND showtime_time = ? AND seatXcoord = ? AND seatYcoord = ?;");
                         seatQuery.setString(1, theatreName);
                         seatQuery.setString(2, movieName);
                         seatQuery.setTimestamp(3, thisTime);
-                        int xCoord = row.indexOf(status);
-                        int yCoord = seatTable.indexOf(row);
-                        seatQuery.setInt(4,xCoord);
-                        seatQuery.setInt(5,yCoord);
+                        seatQuery.setInt(4,colNum);
+                        seatQuery.setInt(5,rowNum);
                         ResultSet seatSet = seatQuery.executeQuery();
                         seatSet.next();
                         status = seatSet.getBoolean(1);
+                        row.add(status);
                     }
+                    seatTable.add(row);
                 }
                 //construct showtime with seattable and time
                 stList.add(new Showtime(seatTable, thisTime.toLocalDateTime()));
