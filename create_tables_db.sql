@@ -1,4 +1,4 @@
-USE ticketreservation_db;
+USE ticketReservation_db;
 
 CREATE TABLE RegisteredUser (
     username VARCHAR(50) NOT NULL,
