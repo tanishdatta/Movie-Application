@@ -21,12 +21,13 @@ public class MainController extends VerticalLayout{
     }
     public void loginSuccess(RegisteredUser user){
         //called by Logincontroller when successfully logged in
-        if(!user.equals(null)){
-            this.user = user;
-        }
-        else{
-            this.user = null;
-        }
+        // if(!user.equals(null)){
+        //     this.user = user;
+        // }
+        // else{
+        //     this.user = null;
+        // }
+        this.user = user;
         try {
             ArrayList<Theatre> theatres = TheatresSingleton.getInstance().getAllTheatres();
             this.gui = new MainScreenGUI(theatres, this);
