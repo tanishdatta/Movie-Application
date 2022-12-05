@@ -2,7 +2,6 @@ USE ticketreservation_db;
 
 UPDATE registereduser  SET last_payment =  '2020-12-04' WHERE username = 'Harnoor5';
 
-DELETE FROM showtime;
 
 INSERT INTO showtime (movie_name, theatre_name, date_time) VALUES
 ('Star Wars: Episode VII - The Force Awakens','WISH.com_cineplex', '2012-06-18 17:10:10'),

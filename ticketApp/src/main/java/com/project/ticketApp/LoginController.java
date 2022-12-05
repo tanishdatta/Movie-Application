@@ -1,5 +1,7 @@
 package com.project.ticketApp;
 
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Paragraph;
 
@@ -35,8 +37,17 @@ public class LoginController implements PaymentObserver{
             }
 
             else{
-                PaymentController paymentController = new PaymentController(this.user, 20, this);
+                Dialog notify = new Dialog();
+                notify.add(new Paragraph("Subscription expired.  Please pay for subscription"));
+                Button confirm = new Button("OK");
+                confirm.addClickListener(ClickEvent ->{
+                    PaymentController paymentController = new PaymentController(this.user, 20, this);
+                    notify.close();
+                });
+                notify.add(confirm);
+                notify.open();
                 gui.close();
+                
                 
             }
             //if user exists

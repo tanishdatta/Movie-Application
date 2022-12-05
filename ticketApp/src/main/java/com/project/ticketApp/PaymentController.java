@@ -1,5 +1,7 @@
 package com.project.ticketApp;
 
+import java.sql.SQLException;
+
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Paragraph;
 
@@ -17,7 +19,7 @@ public class PaymentController {
         this.user =user;
         this.dollarAmount = dollarAmount;
         this.paymentObserver = paymentObserver;
-        this.gui = new PaymentGUI(this,this.dollarAmount);
+        this.gui = new PaymentGUI(user, this,this.dollarAmount);
         gui.open();
 
     }
@@ -40,29 +42,43 @@ public class PaymentController {
         notionalVerification.add(new Paragraph("Card info good"));
         notionalVerification.add(new Paragraph("Modularity babyyyyyyy"));
         notionalVerification.open();
-
-        if(creditDifference < 0){
-            this.credit.subtractDollars(dollarAmount);
-            Dialog notify = new Dialog();
-            notify.add(new Paragraph("Your credit pays for the entire purchase"));
-            notify.add(new Paragraph("Your new credit balance is: " + this.credit.getDollars()));
-            notify.open();
-            this.paymentObserver.paymentGood();
-        }
-        else{
-            try {
-                CreditSingleton.getInstance().deleteCredit(this.credit);
-                this.credit = null;
-                PaymentSingleton.getInstance().createPayment(creditDifference, cardNumber, cardHolder);
+        if (credit != null){
+            if(creditDifference < 0){
+                this.credit.subtractDollars(dollarAmount);
                 Dialog notify = new Dialog();
-                notify.add(new Paragraph("Payment went through"));
+                notify.add(new Paragraph("Your credit pays for the entire purchase"));
+                notify.add(new Paragraph("Your new credit balance is: " + this.credit.getDollars()));
                 notify.open();
                 this.paymentObserver.paymentGood();
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.exit(1);
+            }
+            else{
+                try {
+                    CreditSingleton.getInstance().deleteCredit(this.credit);
+                    this.credit = null;
+                    PaymentSingleton.getInstance().createPayment(creditDifference, cardNumber, cardHolder);
+                    Dialog notify = new Dialog();
+                    notify.add(new Paragraph("Payment went through"));
+                    notify.open();
+                    this.paymentObserver.paymentGood();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.exit(1);
+                }
             }
         }
+        else{
+            try{
+                PaymentSingleton.getInstance().createPayment(creditDifference, cardNumber, cardHolder);
+                    Dialog notify = new Dialog();
+                    notify.add(new Paragraph("Payment went through"));
+                    notify.open();
+                    this.paymentObserver.paymentGood();
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+
+        }
+        
 
         //create payment object passing in the amount to pay (taking into account creditDifference)
         //and credit card info
