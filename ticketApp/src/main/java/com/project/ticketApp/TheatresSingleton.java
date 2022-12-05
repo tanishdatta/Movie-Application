@@ -21,7 +21,7 @@ public class TheatresSingleton extends Singleton<Theatre> {
         //making each theatre
         ArrayList<OfferedMovie> omList = new ArrayList<OfferedMovie>();
         String theatreName = theatreSet.getString(1);
-        PreparedStatement movieQuery = con.prepareStatement("SELECT movie_name FROM OfferedMovie WHERE theatre_name = ?;");
+        PreparedStatement movieQuery = con.prepareStatement("SELECT movie_name FROM offered_movie WHERE theatre_name = ?;");
         movieQuery.setString(1, theatreName);
         ResultSet movieSet = movieQuery.executeQuery();
         while(movieSet.next()){
