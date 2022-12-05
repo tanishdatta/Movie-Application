@@ -42,9 +42,9 @@ public class SeatGUI extends Dialog{
         seatGrid.setItems(seatArray);
         //first make y axis labels
         seatGrid.addColumn(row -> {
-            int rowNum = seatArray.indexOf(row);
-            return IntToChar.convert(rowNum);
-        });
+            System.out.println(seatArray.indexOf(row));
+            return IntToChar.convert(seatArray.indexOf(row));
+        }).setAutoWidth(true).setFlexGrow(1);
         //then make each column with buttons
         for (int c = 0; c<10; c++){
             int column = c;
@@ -62,7 +62,7 @@ public class SeatGUI extends Dialog{
                     seat.getElement().setAttribute("aria-label", "Seat Occupied");
                     return seat;
                 }
-            }).setHeader(String.valueOf(column));
+            }).setHeader(String.valueOf(column)).setAutoWidth(true).setFlexGrow(1);
         }
         add(seatGrid);
     }
