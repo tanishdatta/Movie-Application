@@ -6,8 +6,9 @@ public class TwoDaysPrior implements MovieFilterStrategy{
 
 	@Override
 	public ArrayList<OfferedMovie> filterMovies(ArrayList<OfferedMovie> inputList) {
+	
 		for(OfferedMovie i : inputList){
-			if(i.getMovie().getAnnouncementDate().isAfter(LocalDate.now())){
+			if(i.getMovie().getAnnouncementDate().isAfter(LocalDate.now().minusDays(2))){
 				inputList.remove(i);
 			}
 		}

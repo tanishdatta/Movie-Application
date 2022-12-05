@@ -32,8 +32,10 @@ public class MoviesSingleton extends Singleton<Movie>{
 
     public Movie getMovie(String movieName){
         //Returns Movie object in array that corresponds with given String
+        // System.out.println(arr.get(0).getMovieName());
         for (int i = 0; i < arr.size(); i++) {
-            if (arr.get(i).getMovieName() == movieName)
+            if (arr.get(i).getMovieName().equals(movieName) )
+                
                 return arr.get(i);
         }
         return null;

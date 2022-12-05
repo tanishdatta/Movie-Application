@@ -25,6 +25,7 @@ public class TheatresSingleton extends Singleton<Theatre> {
         movieQuery.setString(1, theatreName);
         ResultSet movieSet = movieQuery.executeQuery();
         while(movieSet.next()){
+            
             //making offeredmovies for each theatre
             ArrayList<Showtime> stList = new ArrayList<Showtime>();
             String movieName = movieSet.getString(1);
@@ -57,6 +58,8 @@ public class TheatresSingleton extends Singleton<Theatre> {
             //get movie object for each offeredmovie
             MoviesSingleton mSingleton = MoviesSingleton.getInstance();
             omList.add(new OfferedMovie(stList, mSingleton.getMovie(movieName)));
+
+            // System.out.println(mSingleton.getMovie(movieName).getMovieName());
             //offered movie passed into its children showtimes in constructor
         }
         arr.add(new Theatre(theatreName, omList));

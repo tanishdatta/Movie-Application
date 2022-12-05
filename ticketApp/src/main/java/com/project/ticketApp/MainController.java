@@ -43,7 +43,8 @@ public class MainController extends VerticalLayout{
     }
     public void loadTheatreMovies(Theatre theatre){
         ArrayList<OfferedMovie> movies = theatre.getAvailableMovies();
-        if(!user.equals(null)){
+         System.out.println(movies.get(0).getMovie().getMovieName());
+        if(this.user != null){
             this.filterstrat = new TwoDaysPrior();
         }
         else{
