@@ -16,7 +16,7 @@ public abstract class Singleton<E>{
 
     public void initConnection(){
         try{
-            con = DriverManager.getConnection("jdbc:mysql://localhost/ticketReservation_db", "root", "ensf"); 
+            con = DriverManager.getConnection("jdbc:mysql://localhost/ticketreservation_db", "root", "ensf"); 
         } 
         catch (SQLException e) {
             e.printStackTrace();
