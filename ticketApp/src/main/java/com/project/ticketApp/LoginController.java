@@ -31,10 +31,13 @@ public class LoginController implements PaymentObserver{
         if(this.user != null){
             if(user.getLastPaid().isAfter(LocalDate.now().minusYears(1))){
                 this.parentController.loginSuccess(this.user);
+                gui.close();
             }
 
             else{
                 PaymentController paymentController = new PaymentController(this.user, 20, this);
+                gui.close();
+                
             }
             //if user exists
             //NESTED IF AND ELSE STATEMENTS
@@ -45,7 +48,7 @@ public class LoginController implements PaymentObserver{
             // instantiate payment controller passing in user and $20
         }
 
-         else{
+        else{
             Dialog notify = new Dialog();
             notify.add(new Paragraph("Login information incorrect"));
             notify.open();

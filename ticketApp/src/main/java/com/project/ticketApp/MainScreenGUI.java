@@ -91,7 +91,7 @@ public class MainScreenGUI extends VerticalLayout{
         theatreGroup.add(theatreCB);
 
         selectTheatre.addClickListener(ClickEvent -> {selectTheatre(theatreCB.getValue());});
-        theatreGroup.add(viewTicket);
+        theatreGroup.add(selectTheatre);
 
         add(theatreGroup);
     }

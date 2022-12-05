@@ -20,7 +20,8 @@ public class UsersSingleton extends Singleton<RegisteredUser> {
             String name = rs.getString("username");
             int card = rs.getInt("credit_card_num");
             String holder = rs.getString("credit_card_holder");
-            RegisteredUser ru = new RegisteredUser(name, card, holder);
+            Date last_paid = rs.getDate("last_payment");
+            RegisteredUser ru = new RegisteredUser(name, card, holder,last_paid.toLocalDate());
             arr.add(ru);
         }
     }
@@ -54,12 +55,21 @@ public class UsersSingleton extends Singleton<RegisteredUser> {
         ResultSet rs = selectStatement.executeQuery();
 
         if (rs.next()) {
-            if (rs.getString("password") == password) {
-                String name = rs.getString("username");
-                int card = rs.getInt("credit_card_num");
-                String holder = rs.getString("credit_card_holder");
-                RegisteredUser ru = new RegisteredUser(name, card, holder);
-                return ru;
+
+            if (rs.getString("password").equals(password)) {
+                // String name = rs.getString("username");
+                // int card = rs.getInt("credit_card_num");
+                // String holder = rs.getString("credit_card_holder");
+                // RegisteredUser ru = new RegisteredUser(name, card, holder);
+                // return ru;
+                // System.out.println(rs.getString("password"));
+                for (RegisteredUser RU : arr){
+                    if(RU.getUsername().equals(username)){
+                        return RU;
+                    }
+                }
+
+
             }
         }
 
