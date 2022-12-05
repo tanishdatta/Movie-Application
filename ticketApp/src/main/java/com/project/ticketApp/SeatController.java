@@ -27,8 +27,15 @@ public class SeatController implements PaymentObserver{
 
         this.showtime = showtime;
         this.user = user;
-        ArrayList<ArrayList<Boolean>> SeatTable = showtime.getSeatArray();
-        seatgui = new SeatGUI(SeatTable, this);
+        ArrayList<ArrayList<Boolean>> seatTable = showtime.getSeatArray();
+        /*for (ArrayList<Boolean> row : seatTable){
+            for (Boolean seat : row){
+                System.out.print(seat.booleanValue());
+                System.out.print(" ");
+            }
+            System.out.println();
+        }*/
+        seatgui = new SeatGUI(seatTable, this);
         seatgui.open();
         
 

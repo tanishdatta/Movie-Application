@@ -14,6 +14,12 @@ public class TheatresSingleton extends Singleton<Theatre> {
 
     private TheatresSingleton()throws SQLException{
        initConnection();
+       //do this once and comment it out lol
+        populateSeats("Star Wars: Episode VII - The Force Awakens","WISH.com_cineplex", "2012-06-18 17:10:10");
+        populateSeats("Avengers: Endgame","WISH.com_cineplex", "2012-06-18 13:10:10");
+        populateSeats("Spider-Man: No Way Home","WISH.com_cineplex", "2012-06-18 10:00:00");
+        populateSeats("Avatar","WISH.com_cineplex", "2012-06-18 06:00:00");
+        populateSeats("Top Gun: Maverick","WISH.com_cineplex", "2012-06-18 20:00:00");
        //getting theatres
        PreparedStatement theatreQuery = con.prepareStatement("SELECT Name FROM Theatre;");
        ResultSet theatreSet = theatreQuery.executeQuery();
@@ -104,7 +110,26 @@ public class TheatresSingleton extends Singleton<Theatre> {
             //     // arr.add(theatre);
             // }
 
-    
+    //this function should only be executed once to set seats in database
+    private void populateSeats(String moviename, String theatrename, String datetime) {
+        for (int row = 0; row <10; row++){
+            for (int column = 0; column<10; column++){
+                try{
+                    PreparedStatement makeSeat = con.prepareStatement("INSERT INTO Seat (theatre_name, movie_name, showtime_time, seatXcoord, seatYcoord, status) VALUES (?,?,?,?,?,?);");
+                    makeSeat.setString(1, theatrename);
+                    makeSeat.setString(2, moviename);
+                    makeSeat.setTimestamp(3, Timestamp.valueOf(datetime));
+                    makeSeat.setInt(4, column);
+                    makeSeat.setInt(5, row);
+                    makeSeat.setBoolean(6, false);
+                    makeSeat.executeUpdate();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public static TheatresSingleton getInstance() throws SQLException{
         
         if (instance == null) {

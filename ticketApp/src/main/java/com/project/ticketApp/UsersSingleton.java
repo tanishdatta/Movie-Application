@@ -40,9 +40,11 @@ public class UsersSingleton extends Singleton<RegisteredUser> {
         LocalDate date = user.getLastPaid();
 
         PreparedStatement uStatement = con.prepareStatement("UPDATE registereduser SET last_payment = ? WHERE username = ?;");
-        uStatement.setDate(1, Date.valueOf(date));
+        uStatement.setDate(1, Date.valueOf(LocalDate.now()));
         uStatement.setString(2, username);
-        uStatement.executeQuery();
+        uStatement.executeUpdate();
+
+        user.setLastPaid(LocalDate.now());
 
     }
 

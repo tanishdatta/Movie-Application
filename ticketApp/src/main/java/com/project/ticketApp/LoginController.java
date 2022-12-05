@@ -43,10 +43,16 @@ public class LoginController implements PaymentObserver{
                 confirm.addClickListener(ClickEvent ->{
                     PaymentController paymentController = new PaymentController(this.user, 20, this);
                     notify.close();
+                    gui.close();
                 });
                 notify.add(confirm);
+                Button nope = new Button("Take me back to login");
+                nope.addClickListener(ClickEvent -> {
+                    notify.close();
+                });
+                notify.add(nope);
                 notify.open();
-                gui.close();
+                
                 
                 
             }

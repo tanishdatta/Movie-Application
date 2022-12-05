@@ -2,6 +2,8 @@ package com.project.ticketApp;
 
 import java.sql.SQLException;
 
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Paragraph;
 
@@ -40,7 +42,10 @@ public class PaymentController {
         notionalVerification.add(new Paragraph("Credit card number: " + cardNumber));
         notionalVerification.add(new Paragraph("Cardholder: " + cardHolder));
         notionalVerification.add(new Paragraph("Card info good"));
-        notionalVerification.add(new Paragraph("Modularity babyyyyyyy"));
+        Button okay = new Button("OK");
+        okay.addClickListener(ClickEvent ->{notionalVerification.close();});
+        notionalVerification.add(okay);
+
         notionalVerification.open();
         if (credit != null){
             if(creditDifference < 0){
