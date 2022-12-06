@@ -46,12 +46,6 @@ public class MainScreenGUI extends VerticalLayout{
     }
     public void loadTheatreMovies(ArrayList<OfferedMovie> movieList){//called by main controller when 
                                                             //offered movies for this theatre fetched
-        if(movieList == null){
-            Dialog notify = new Dialog();
-            notify.add(new Paragraph("Currently no showtimes at this theatre"));
-            notify.open();
-            return;
-        }
         Accordion movieAC = new Accordion();//clear accordion
         for (OfferedMovie om : movieList){//build Accordion of offeredmovies
             VerticalLayout omLayout = new VerticalLayout();//build grid of showtimes  in each panel
