@@ -165,13 +165,10 @@ public class TheatresSingleton extends Singleton<Theatre> {
 
     public Showtime getShowtime(String theatre_name, String movie_name, LocalDateTime time) {
         for (Theatre t : arr){
-            System.out.println("looking at theatre: "+ t.getName());
             if (t.getName().equals(theatre_name)){
                 for (OfferedMovie om : t.getAvailableMovies()){
-                    System.out.println("looking at offeredmovie: "+ om.getMovie().getMovieName());
                     if (om.getMovie().getMovieName().equals(movie_name)){
                         for (Showtime st : om.getShowtimes()){
-                            System.out.println("looking at showtime: "+ st.getTime());
                             if (st.getTime().equals(time)){
                                 return st;
                             }
@@ -185,8 +182,9 @@ public class TheatresSingleton extends Singleton<Theatre> {
         return null;
     }
     public void addTheatre(String theatreName) throws SQLException{
-        PreparedStatement makeTheatre = con.prepareStatement("INSERT INTO Theatre (NAME) VALUES (?);");
+        PreparedStatement makeTheatre = con.prepareStatement("INSERT INTO Theatre (name, location) VALUES (?,?);");
         makeTheatre.setString(1,theatreName);
+        makeTheatre.setString(2,"Somewhere else");
         makeTheatre.executeUpdate();
 
         arr.add(new Theatre(theatreName, null));
@@ -197,7 +195,7 @@ public class TheatresSingleton extends Singleton<Theatre> {
         makeOfferedMovie.setString(1,movieName);
         makeOfferedMovie.setString(2,theatreName);
         makeOfferedMovie.executeUpdate();
-
+        
         arr.add(new Theatre(theatreName, null));
     }
 

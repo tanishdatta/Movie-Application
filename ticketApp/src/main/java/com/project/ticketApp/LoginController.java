@@ -92,4 +92,7 @@ public class LoginController implements PaymentObserver{
         // call loginsuccess in main controller, passing in user obj 
         
     }
+    public void adminLogin() {
+        parentController.adminLogin();
+    }
 }

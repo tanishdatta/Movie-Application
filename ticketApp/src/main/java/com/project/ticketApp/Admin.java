@@ -158,11 +158,6 @@ public class Admin extends VerticalLayout implements PaymentObserver{
                 e.printStackTrace();
             }
         }
-    
-        public static void main(String[] args)  {
-            Admin admin = new Admin();
-
-    }
 
         @Override
         public void paymentGood() {

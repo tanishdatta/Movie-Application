@@ -51,7 +51,7 @@ public class UsersSingleton extends Singleton<RegisteredUser> {
     public void addUser(String username, String password, String name, int creditCardNO, String creditCardHolder, LocalDate last_payment) throws SQLException
 {
 
-        PreparedStatement makeSeat = con.prepareStatement("INSERT INTO registereduser (username, password, name, credit_card_number, credit_card_holder, last_payment) VALUES (?,?,?,?,?,?);");
+        PreparedStatement makeSeat = con.prepareStatement("INSERT INTO registereduser (username, password, name, credit_card_num, credit_card_holder, last_payment) VALUES (?,?,?,?,?,?);");
         makeSeat.setString(1, username);
         makeSeat.setString(2, password);
         makeSeat.setDate(6, Date.valueOf(last_payment));

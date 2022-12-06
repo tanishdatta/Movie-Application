@@ -16,6 +16,7 @@ public class LoginGUI extends Dialog {
     PasswordField passwordField = new PasswordField("Password");
     Button login = new Button("Login");
     Button loginGuest = new Button("Login as guest");
+    Button admin = new Button("Login as admin");
     //end components
 
     
@@ -47,9 +48,17 @@ public class LoginGUI extends Dialog {
         buttons.add(login);
         loginGuest.addClickListener(ClickEvent -> {guestLogin();});
         buttons.add(loginGuest);
+        admin.addClickListener(ClickEvent -> {adminLogin();});
+        buttons.add(admin);
+
 
         add(buttons);
     }
+    private void adminLogin() {
+        parentController.adminLogin();
+    }
     //end helper functions
+
+    
 
 }

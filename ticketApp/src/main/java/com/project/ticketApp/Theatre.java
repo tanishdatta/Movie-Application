@@ -9,9 +9,12 @@ public class Theatre {
     public Theatre(String theatreName, ArrayList<OfferedMovie> availableMovies){
         this.theatreName = theatreName;
         this.availableMovies = availableMovies;
-        for (OfferedMovie om : availableMovies){
-            om.setTheatre(this);
+        if (availableMovies.size() >0){
+            for (OfferedMovie om : availableMovies){
+                om.setTheatre(this);
+            }
         }
+        
     }
     
     public ArrayList<OfferedMovie> getAvailableMovies(){
