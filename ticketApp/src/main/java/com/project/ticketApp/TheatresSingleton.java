@@ -188,25 +188,55 @@ public class TheatresSingleton extends Singleton<Theatre> {
         makeTheatre.setString(2,"Somewhere else");
         makeTheatre.executeUpdate();
 
-        arr.add(new Theatre(theatreName, null));
+        arr.add(new Theatre(theatreName, new ArrayList<OfferedMovie>()));
     }
 
-    public void addOfferedMovie(String movieName, String theatreName) throws SQLException{
+    public boolean addOfferedMovie(String movieName, String theatreName) throws SQLException{
         PreparedStatement makeOfferedMovie = con.prepareStatement("INSERT INTO offered_movie (movie_name, theatre_name) VALUES (?,?);");
         makeOfferedMovie.setString(1,movieName);
         makeOfferedMovie.setString(2,theatreName);
         makeOfferedMovie.executeUpdate();
-        
-        arr.add(new Theatre(theatreName, null));
+        if(MoviesSingleton.getInstance().getMovie(movieName) == null){
+            return false;
+        }
+        for(Theatre t : arr){
+            if(t.getName().equals(theatreName)){
+                t.addOfferedMovie(new OfferedMovie(new ArrayList<Showtime>(), MoviesSingleton.getInstance().getMovie(movieName)));
+                return true;
+            }
+        }
+        return false;
+       
     }
 
-    public void addShowtime(String movieName, String theatreName, LocalDate showtime_date, LocalTime showtime_time) throws SQLException {
+    public boolean addShowtime(String movieName, String theatreName, LocalDate showtime_date, LocalTime showtime_time) throws SQLException {
         PreparedStatement makeShowtime = con.prepareStatement("INSERT INTO Showtime (theatre_name, movie_name, date_time) VALUES (?,?,?);");
         makeShowtime.setString(1,movieName);
         makeShowtime.setString(2,theatreName);
         LocalDateTime stuff = LocalDateTime.of(showtime_date, showtime_time);
         makeShowtime.setTimestamp(3, Timestamp.valueOf(stuff));
         makeShowtime.executeUpdate();
+        for(Theatre t : arr){
+            if(t.getName().equals(theatreName)){
+                for(OfferedMovie om: t.getAvailableMovies()){
+                    if(om.getMovie() == null){
+                        return false;
+                    }
+                    if(om.getMovie().getMovieName().equals(movieName)){
+                        ArrayList<ArrayList<Boolean>> seatTable = new ArrayList<ArrayList<Boolean>>();
+                        for (int rowNum = 0; rowNum < 10; rowNum++){
+                            ArrayList<Boolean> row = new ArrayList<Boolean>();
+                            for (int colNum = 0; colNum < 10; colNum++){
+                                row.add(false);
+                            }
+                        }
+                        om.addShowtime(new Showtime(seatTable, stuff));
+                        populateSeats(movieName, theatreName, stuff.toString());
+                        return true;
+                    
+                }
+            }
+        }
         
         populateSeats(movieName, theatreName, stuff.toString());
     }
@@ -227,3 +257,5 @@ public class TheatresSingleton extends Singleton<Theatre> {
         }
     }
 }
+}
+

@@ -120,10 +120,17 @@ public class Admin extends VerticalLayout implements PaymentObserver{
 
         public void addShowtime(String movieName, String theatreName, LocalDate showtime_date, LocalTime showtime_time){
             try{
-                TheatresSingleton.getInstance().addShowtime(movieName, theatreName, showtime_date, showtime_time);
-                Dialog notify = new Dialog();
-            notify.add(new Paragraph("Showtime added"));
-            notify.open();
+                boolean check = TheatresSingleton.getInstance().addShowtime(movieName, theatreName, showtime_date, showtime_time);
+                if(check){
+                    Dialog notify = new Dialog();
+                    notify.add(new Paragraph("Showtime added"));
+                    notify.open();
+                }
+                else{
+                    Dialog notify = new Dialog();
+                    notify.add(new Paragraph("Theatre or Movie doesn't exist"));
+                    notify.open();
+                }
             }catch(SQLException e){
                 e.printStackTrace();
             }
@@ -131,10 +138,17 @@ public class Admin extends VerticalLayout implements PaymentObserver{
 
         public void addOfferedMovie(String movieName, String theatreName){
             try{
-                TheatresSingleton.getInstance().addOfferedMovie(movieName, theatreName);
-                Dialog notify = new Dialog();
-            notify.add(new Paragraph("Offered movie added"));
-            notify.open();
+                boolean check = TheatresSingleton.getInstance().addOfferedMovie(movieName, theatreName);
+                if(check){
+                    Dialog notify = new Dialog();
+                    notify.add(new Paragraph("Offered movie added"));
+                    notify.open();
+                }
+                else{
+                    Dialog notify = new Dialog();
+                    notify.add(new Paragraph("Theatre or Movie does not exist"));
+                    notify.open();
+                }
             }catch(SQLException e){
                 e.printStackTrace();
             }
