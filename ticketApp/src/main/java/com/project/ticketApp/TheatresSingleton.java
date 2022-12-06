@@ -5,9 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class TheatresSingleton extends Singleton<Theatre> {
@@ -16,13 +14,13 @@ public class TheatresSingleton extends Singleton<Theatre> {
     private TheatresSingleton()throws SQLException{
        initConnection();
        //do this once and comment it out lol
-       /* 
-        populateSeats("Star Wars: Episode VII - The Force Awakens","WISH.com_cineplex", "2012-06-18 17:10:10");
-        populateSeats("Avengers: Endgame","WISH.com_cineplex", "2012-06-18 13:10:10");
-        populateSeats("Spider-Man: No Way Home","WISH.com_cineplex", "2012-06-18 10:00:00");
-        populateSeats("Avatar","WISH.com_cineplex", "2012-06-18 06:00:00");
-        populateSeats("Top Gun: Maverick","WISH.com_cineplex", "2012-06-18 20:00:00");
-        */
+        
+        // populateSeats("Star Wars: Episode VII - The Force Awakens","WISH.com_cineplex", "2022-12-16 17:10:00");
+        // populateSeats("Avengers: Endgame","WISH.com_cineplex", "2022-12-18 13:10:00");
+        // populateSeats("Spider-Man: No Way Home","WISH.com_cineplex", "2022-12-21 10:00:00");
+        // populateSeats("Avatar","WISH.com_cineplex", "2022-12-07 06:00:00");
+        // populateSeats("Top Gun: Maverick","WISH.com_cineplex", "2022-12-06 20:00:00");
+        
        //getting theatres
        PreparedStatement theatreQuery = con.prepareStatement("SELECT Name FROM Theatre;");
        ResultSet theatreSet = theatreQuery.executeQuery();
@@ -162,83 +160,4 @@ public class TheatresSingleton extends Singleton<Theatre> {
     public ArrayList<Theatre> getAllTheatres(){
         return arr;
     }
-
-    public Showtime getShowtime(String theatre_name, String movie_name, LocalDateTime time) {
-        for (Theatre t : arr){
-            if (t.getName().equals(theatre_name)){
-                for (OfferedMovie om : t.getAvailableMovies()){
-                    if (om.getMovie().getMovieName().equals(movie_name)){
-                        for (Showtime st : om.getShowtimes()){
-                            if (st.getTime().equals(time)){
-                                return st;
-                            }
-                        }
-                    }
-                }
-            }
-            
-        }
-        System.out.println("Error finding showtime in theatressingleton");
-        return null;
-    }
-    public void addTheatre(String theatreName) throws SQLException{
-        PreparedStatement makeTheatre = con.prepareStatement("INSERT INTO Theatre (name, location) VALUES (?,?);");
-        makeTheatre.setString(1,theatreName);
-        makeTheatre.setString(2,"Somewhere else");
-        makeTheatre.executeUpdate();
-
-        arr.add(new Theatre(theatreName, new ArrayList<OfferedMovie>()));
-    }
-
-    public boolean addOfferedMovie(String movieName, String theatreName) throws SQLException{
-        PreparedStatement makeOfferedMovie = con.prepareStatement("INSERT INTO offered_movie (movie_name, theatre_name) VALUES (?,?);");
-        makeOfferedMovie.setString(1,movieName);
-        makeOfferedMovie.setString(2,theatreName);
-        makeOfferedMovie.executeUpdate();
-        if(MoviesSingleton.getInstance().getMovie(movieName) == null){
-            return false;
-        }
-        for(Theatre t : arr){
-            if(t.getName().equals(theatreName)){
-                t.addOfferedMovie(new OfferedMovie(new ArrayList<Showtime>(), MoviesSingleton.getInstance().getMovie(movieName)));
-                return true;
-            }
-        }
-        return false;
-       
-    }
-
-    public boolean addShowtime(String movieName, String theatreName, LocalDate showtime_date, LocalTime showtime_time) throws SQLException {
-        PreparedStatement makeShowtime = con.prepareStatement("INSERT INTO Showtime (theatre_name, movie_name, date_time) VALUES (?,?,?);");
-        makeShowtime.setString(1,movieName);
-        makeShowtime.setString(2,theatreName);
-        LocalDateTime stuff = LocalDateTime.of(showtime_date, showtime_time);
-        makeShowtime.setTimestamp(3, Timestamp.valueOf(stuff));
-        makeShowtime.executeUpdate();
-        for(Theatre t : arr){
-            if(t.getName().equals(theatreName)){
-                for(OfferedMovie om: t.getAvailableMovies()){
-                    if(om.getMovie() == null){
-                        return false;
-                    }
-                    if(om.getMovie().getMovieName().equals(movieName)){
-                        ArrayList<ArrayList<Boolean>> seatTable = new ArrayList<ArrayList<Boolean>>();
-                        for (int rowNum = 0; rowNum < 10; rowNum++){
-                            ArrayList<Boolean> row = new ArrayList<Boolean>();
-                            for (int colNum = 0; colNum < 10; colNum++){
-                                row.add(false);
-                            }
-                        }
-                        om.addShowtime(new Showtime(seatTable, stuff));
-                        populateSeats(movieName, theatreName, stuff.toString());
-                        return true;
-                    
-                }
-            }
-        }
-        
-    }
-    return false;
 }
-}
-
