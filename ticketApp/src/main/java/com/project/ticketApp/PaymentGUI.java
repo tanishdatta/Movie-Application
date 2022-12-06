@@ -41,6 +41,7 @@ public class PaymentGUI extends Dialog{
     
     public void setDollarAmount(int dollarAmount){
         this.dollarAmount = dollarAmount;
+        System.out.println(dollarAmount);
         dollarPara = new Paragraph("Pay amount: $"+ dollarAmount);
         //update GUI with new dollarAmount
     }
@@ -62,7 +63,15 @@ public class PaymentGUI extends Dialog{
     private void initCardGroup() {
         add(ccNumNF);
         add(cardHolderTF);
-        pay.addClickListener(ClickEvent ->{pay(ccNumNF.getValue().intValue(), cardHolderTF.getValue());});
+        pay.addClickListener(ClickEvent ->{
+            if (ccNumNF.getValue() !=null && cardHolderTF.getValue() != null){
+                pay(ccNumNF.getValue().intValue(), cardHolderTF.getValue());
+            }
+            else{
+                pay(0, null);
+            }
+            
+        });
         add(pay);
     }
     private void initRefundGroup() {

@@ -22,6 +22,7 @@ public class TheatresSingleton extends Singleton<Theatre> {
         populateSeats("Spider-Man: No Way Home","WISH.com_cineplex", "2012-06-18 10:00:00");
         populateSeats("Avatar","WISH.com_cineplex", "2012-06-18 06:00:00");
         populateSeats("Top Gun: Maverick","WISH.com_cineplex", "2012-06-18 20:00:00");
+        populateSeats("Avatar","WISH.com_cineplex", "2022-12-10 06:00:00");
         */
        //getting theatres
        PreparedStatement theatreQuery = con.prepareStatement("SELECT Name FROM Theatre;");

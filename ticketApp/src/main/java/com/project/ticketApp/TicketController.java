@@ -43,6 +43,7 @@ public class TicketController {
         //instantiate ticketGUI, passing in this and ticket
     }
     public void refundTicket(){
+        System.out.println("Checking if showtime has proper date: "+ (ticket.getShowtime().getTime() != null));
         try {
             if(!ticket.getShowtime().getTime().isBefore(LocalDateTime.now().plusDays(3))){
                 Dialog notify = new Dialog();
