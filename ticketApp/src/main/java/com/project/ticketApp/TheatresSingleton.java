@@ -236,11 +236,14 @@ public class TheatresSingleton extends Singleton<Theatre> {
                 }
             }
         }
-        
+            
         }
         return false;
-    
     }
+        
+        
+    
+
 
     public void setSeatEmpty(String movieName, String theatrename, LocalDateTime datetime, int xCoord, int yCoord) {
         try{
@@ -257,4 +260,6 @@ public class TheatresSingleton extends Singleton<Theatre> {
             e.printStackTrace();
         }
     }
+
 }
+
