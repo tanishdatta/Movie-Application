@@ -43,6 +43,7 @@ public class TicketController {
         //instantiate ticketGUI, passing in this and ticket
     }
     public void refundTicket(){
+        System.out.println("Checking if showtime has proper date: "+ (ticket.getShowtime().getTime() != null));
         try {
             if(!ticket.getShowtime().getTime().isBefore(LocalDateTime.now().plusDays(3))){
                 Dialog notify = new Dialog();
@@ -51,6 +52,7 @@ public class TicketController {
                 Credit credit = CreditSingleton.getInstance().createCredit(ticket.getPrice());
                 this.gui.displayRefundCode(credit.getCreditCode(), ticket.getPrice());
                 TicketsSingleton.getInstance().deleteTicket(ticket);
+                TheatresSingleton.getInstance().setSeatEmpty(ticket.getShowtime().getMovie().getMovie().getMovieName(), ticket.getShowtime().getMovie().getTheatre().getName(), ticket.getShowtime().getTime(), ticket.getxCoord(), ticket.getyCoord());
             }
             else{
                 this.gui.nonRefundable();

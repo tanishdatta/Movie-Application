@@ -15,6 +15,7 @@ public class PaymentGUI extends Dialog{
 
     //start components...
     Paragraph dollarPara;
+    HorizontalLayout dollarGroup = new HorizontalLayout();
     NumberField refundCreditNF = new NumberField("Enter refund credit code:");
     Button useRefund = new Button("Submit refund code");
     NumberField ccNumNF = new NumberField("Credit card number:");
@@ -41,7 +42,9 @@ public class PaymentGUI extends Dialog{
     
     public void setDollarAmount(int dollarAmount){
         this.dollarAmount = dollarAmount;
+        dollarGroup.remove(dollarPara);
         dollarPara = new Paragraph("Pay amount: $"+ dollarAmount);
+        dollarGroup.add(dollarPara);
         //update GUI with new dollarAmount
     }
 
@@ -56,13 +59,23 @@ public class PaymentGUI extends Dialog{
 
     //start helper functs...
     private void initDollarPara() {
+        
         dollarPara = new Paragraph("Pay amount:$ "+ dollarAmount);
-        add(dollarPara);
+        dollarGroup.add(dollarPara);
+        add(dollarGroup);
     }
     private void initCardGroup() {
         add(ccNumNF);
         add(cardHolderTF);
-        pay.addClickListener(ClickEvent ->{pay(ccNumNF.getValue().intValue(), cardHolderTF.getValue());});
+        pay.addClickListener(ClickEvent ->{
+            if (ccNumNF.getValue() !=null && cardHolderTF.getValue() != null){
+                pay(ccNumNF.getValue().intValue(), cardHolderTF.getValue());
+            }
+            else{
+                pay(0, null);
+            }
+            
+        });
         add(pay);
     }
     private void initRefundGroup() {

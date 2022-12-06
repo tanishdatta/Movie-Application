@@ -41,7 +41,7 @@ public class CreditSingleton extends Singleton<Credit> {
         PreparedStatement delStatement = con.prepareStatement("DELETE FROM refund_credit WHERE credit_code = ?;");
         delStatement.setInt(1, code);
 
-        delStatement.executeQuery();
+        delStatement.executeUpdate();
 
         for (int i = 0; i < arr.size(); i++) {
             if (arr.get(i).getCreditCode() == code) 
@@ -58,19 +58,20 @@ public class CreditSingleton extends Singleton<Credit> {
         PreparedStatement uStatement = con.prepareStatement("UPDATE refund_credit SET dollar_amount = dollar_amount + ? WHERE credit_code = ?;");
         uStatement.setInt(1, dollar);
         uStatement.setInt(2, code);
-        uStatement.executeQuery();
+        uStatement.executeUpdate();
 
     }
 
     public void subtractDollars(Credit credit, int dollar) throws SQLException{
         //Subtract dollar value to credit in database
         //Subtract dollar value to credit object in ArrayList
-
+        System.out.println("Subtracting dollars from credit");
         int code = credit.getCreditCode();
         PreparedStatement uStatement = con.prepareStatement("UPDATE refund_credit SET dollar_amount = dollar_amount - ? WHERE credit_code = ?;");
         uStatement.setInt(1, dollar);
         uStatement.setInt(2, code);
-        uStatement.executeQuery();
+        uStatement.executeUpdate();
+        credit.subtractDollars(dollar);
 
     }
 
@@ -84,12 +85,12 @@ public class CreditSingleton extends Singleton<Credit> {
         // create a new in refund_credit with given dollar amount
         PreparedStatement iStatement = con.prepareStatement("INSERT INTO refund_credit (dollar_amount) VALUES (?);");
         iStatement.setInt(1, dollar);
-        iStatement.executeQuery();
+        iStatement.executeUpdate();
 
         // retrieve credit_code pf last added tuple to the table
         PreparedStatement gStatement = con.prepareStatement("SELECT * FROM refund_credit ORDER BY credit_code DESC LIMIT 1;");
         ResultSet rs = gStatement.executeQuery();
-
+        rs.next();
         int code = rs.getInt("credit_code");
         Credit credit = new Credit(dollar, code);
         arr.add(credit);

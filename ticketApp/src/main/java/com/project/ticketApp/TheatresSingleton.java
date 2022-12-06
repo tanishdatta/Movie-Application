@@ -160,4 +160,98 @@ public class TheatresSingleton extends Singleton<Theatre> {
     public ArrayList<Theatre> getAllTheatres(){
         return arr;
     }
+
+    public Showtime getShowtime(String theatre_name, String movie_name, LocalDateTime time) {
+        for (Theatre t : arr){
+            if (t.getName().equals(theatre_name)){
+                for (OfferedMovie om : t.getAvailableMovies()){
+                    if (om.getMovie().getMovieName().equals(movie_name)){
+                        for (Showtime st : om.getShowtimes()){
+                            if (st.getTime().equals(time)){
+                                return st;
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+        System.out.println("Error finding showtime in theatressingleton");
+        return null;
+    }
+    public void addTheatre(String theatreName) throws SQLException{
+        PreparedStatement makeTheatre = con.prepareStatement("INSERT INTO Theatre (name, location) VALUES (?,?);");
+        makeTheatre.setString(1,theatreName);
+        makeTheatre.setString(2,"Somewhere else");
+        makeTheatre.executeUpdate();
+
+        arr.add(new Theatre(theatreName, new ArrayList<OfferedMovie>()));
+    }
+
+    public boolean addOfferedMovie(String movieName, String theatreName) throws SQLException{
+        PreparedStatement makeOfferedMovie = con.prepareStatement("INSERT INTO offered_movie (movie_name, theatre_name) VALUES (?,?);");
+        makeOfferedMovie.setString(1,movieName);
+        makeOfferedMovie.setString(2,theatreName);
+        makeOfferedMovie.executeUpdate();
+        if(MoviesSingleton.getInstance().getMovie(movieName) == null){
+            return false;
+        }
+        for(Theatre t : arr){
+            if(t.getName().equals(theatreName)){
+                t.addOfferedMovie(new OfferedMovie(new ArrayList<Showtime>(), MoviesSingleton.getInstance().getMovie(movieName)));
+                return true;
+            }
+        }
+        return false;
+       
+    }
+
+    public boolean addShowtime(String movieName, String theatreName, LocalDate showtime_date, LocalTime showtime_time) throws SQLException {
+        PreparedStatement makeShowtime = con.prepareStatement("INSERT INTO Showtime (theatre_name, movie_name, date_time) VALUES (?,?,?);");
+        makeShowtime.setString(1,movieName);
+        makeShowtime.setString(2,theatreName);
+        LocalDateTime stuff = LocalDateTime.of(showtime_date, showtime_time);
+        makeShowtime.setTimestamp(3, Timestamp.valueOf(stuff));
+        makeShowtime.executeUpdate();
+        for(Theatre t : arr){
+            if(t.getName().equals(theatreName)){
+                for(OfferedMovie om: t.getAvailableMovies()){
+                    if(om.getMovie() == null){
+                        return false;
+                    }
+                    if(om.getMovie().getMovieName().equals(movieName)){
+                        ArrayList<ArrayList<Boolean>> seatTable = new ArrayList<ArrayList<Boolean>>();
+                        for (int rowNum = 0; rowNum < 10; rowNum++){
+                            ArrayList<Boolean> row = new ArrayList<Boolean>();
+                            for (int colNum = 0; colNum < 10; colNum++){
+                                row.add(false);
+                            }
+                        }
+                        om.addShowtime(new Showtime(seatTable, stuff));
+                        populateSeats(movieName, theatreName, stuff.toString());
+                        return true;
+                    
+                }
+            }
+        }
+        
+        }
+    
+    }
+
+    public void setSeatEmpty(String movieName, String theatrename, LocalDateTime datetime, int xCoord, int yCoord) {
+        try{
+            PreparedStatement makeSeat = con.prepareStatement("UPDATE Seat SET status = ? WHERE theatre_name = ? AND movie_name = ? AND showtime_time = ? AND seatXcoord = ? AND seatYcoord = ?;");
+            makeSeat.setBoolean(1, true);
+            makeSeat.setString(2, theatrename);
+            makeSeat.setString(3, movieName);
+            makeSeat.setTimestamp(4, Timestamp.valueOf(datetime));
+            makeSeat.setInt(5, xCoord);
+            makeSeat.setInt(6, yCoord);
+            
+            makeSeat.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 }

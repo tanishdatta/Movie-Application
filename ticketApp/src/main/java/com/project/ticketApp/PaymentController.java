@@ -48,8 +48,13 @@ public class PaymentController {
 
         notionalVerification.open();
         if (credit != null){
-            if(creditDifference < 0){
-                this.credit.subtractDollars(dollarAmount);
+            if(creditDifference <= 0){
+                try {
+                    CreditSingleton.getInstance().subtractDollars(this.credit, dollarAmount);
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 Dialog notify = new Dialog();
                 notify.add(new Paragraph("Your credit pays for the entire purchase"));
                 notify.add(new Paragraph("Your new credit balance is: " + this.credit.getDollars()));
@@ -58,6 +63,14 @@ public class PaymentController {
                 this.paymentObserver.paymentGood();
             }
             else{
+                if (cardNumber == 0 || cardHolder == null){
+                    Dialog noCard = new Dialog();
+                    noCard.add(new Paragraph("Error: no credit card info submitted"));
+                    Button ok2 = new Button("OK");
+                    ok2.addClickListener(ClickEvent -> {noCard.close();});
+                    noCard.add(ok2);
+                    return;
+                }
                 try {
                     CreditSingleton.getInstance().deleteCredit(this.credit);
                     this.credit = null;
@@ -71,6 +84,14 @@ public class PaymentController {
             }
         }
         else{
+            if (cardNumber == 0 || cardHolder == null){
+                Dialog noCard = new Dialog();
+                noCard.add(new Paragraph("Error: no credit card info submitted"));
+                Button ok2 = new Button("OK");
+                ok2.addClickListener(ClickEvent -> {noCard.close();});
+                noCard.add(ok2);
+                return;
+            }
             try{
                 PaymentSingleton.getInstance().createPayment(dollarAmount, cardNumber, cardHolder);
                 this.gui.close();
@@ -106,7 +127,7 @@ public class PaymentController {
             }
 
             this.creditDifference = this.dollarAmount - this.credit.getDollars();
-            if(creditDifference < 0) {
+            if(creditDifference <= 0) {
                 this.gui.setDollarAmount(0);
             }
             else{

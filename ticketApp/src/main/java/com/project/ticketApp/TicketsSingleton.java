@@ -86,6 +86,12 @@ public class TicketsSingleton extends Singleton<Ticket> {
     }
 
     public void deleteTicket(Ticket ticket){
+        try (PreparedStatement removeThick = con.prepareStatement("DELETE FROM ticket WHERE ticket_id = ?")) {
+            removeThick.setInt(1, ticket.getTicketID());
+            removeThick.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         this.arr.remove(ticket);
     }
 
