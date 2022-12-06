@@ -1,5 +1,6 @@
 package com.project.ticketApp;
 
+import java.security.Timestamp;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -47,7 +48,21 @@ public class UsersSingleton extends Singleton<RegisteredUser> {
         user.setLastPaid(LocalDate.now());
 
     }
+    public void addUser(String username, String password, String name, int creditCardNO, String creditCardHolder, LocalDate last_payment) throws SQLException
+{
 
+        PreparedStatement makeSeat = con.prepareStatement("INSERT INTO registereduser (username, password, name, credit_card_number, credit_card_holder, last_payment) VALUES (?,?,?,?,?,?);");
+        makeSeat.setString(1, username);
+        makeSeat.setString(2, password);
+        makeSeat.setDate(6, Date.valueOf(last_payment));
+        makeSeat.setString(3, name);
+        makeSeat.setInt(4, creditCardNO);
+        makeSeat.setString(5, creditCardHolder);
+        makeSeat.executeUpdate();
+
+        arr.add(new RegisteredUser(username, creditCardNO,creditCardHolder,last_payment));
+
+}    
     public RegisteredUser verifyLogin(String username, String password) throws SQLException{
         //check in database if username and password map to a registered user entity
 

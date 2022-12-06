@@ -1,5 +1,6 @@
 package com.project.ticketApp;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,5 +41,13 @@ public class MoviesSingleton extends Singleton<Movie>{
         }
         return null;
     }
-    
+
+    public void addMovie(String movieName, LocalDate announceDate) throws SQLException
+{   
+    PreparedStatement makeSeat = con.prepareStatement("INSERT INTO Movie (name, release_date) VALUES (?,?);");
+        makeSeat.setString(1, movieName);
+        makeSeat.setDate(2, Date.valueOf(announceDate));
+        makeSeat.executeUpdate();
+        arr.add(new Movie(announceDate,movieName));
+}    
 }

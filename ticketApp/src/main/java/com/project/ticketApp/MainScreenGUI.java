@@ -7,6 +7,7 @@ import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.accordion.Accordion;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Paragraph;
@@ -45,6 +46,12 @@ public class MainScreenGUI extends VerticalLayout{
     }
     public void loadTheatreMovies(ArrayList<OfferedMovie> movieList){//called by main controller when 
                                                             //offered movies for this theatre fetched
+        if(movieList == null){
+            Dialog notify = new Dialog();
+            notify.add(new Paragraph("Currently no showtimes at this theatre"));
+            notify.open();
+            return;
+        }
         Accordion movieAC = new Accordion();//clear accordion
         for (OfferedMovie om : movieList){//build Accordion of offeredmovies
             VerticalLayout omLayout = new VerticalLayout();//build grid of showtimes  in each panel

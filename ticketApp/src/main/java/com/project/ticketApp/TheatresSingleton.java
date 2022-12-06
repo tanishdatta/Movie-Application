@@ -5,7 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class TheatresSingleton extends Singleton<Theatre> {
@@ -181,5 +183,32 @@ public class TheatresSingleton extends Singleton<Theatre> {
         }
         System.out.println("Error finding showtime in theatressingleton");
         return null;
+    }
+    public void addTheatre(String theatreName) throws SQLException{
+        PreparedStatement makeTheatre = con.prepareStatement("INSERT INTO Theatre (NAME) VALUES (?);");
+        makeTheatre.setString(1,theatreName);
+        makeTheatre.executeUpdate();
+
+        arr.add(new Theatre(theatreName, null));
+    }
+
+    public void addOfferedMovie(String movieName, String theatreName) throws SQLException{
+        PreparedStatement makeOfferedMovie = con.prepareStatement("INSERT INTO offered_movie (movie_name, theatre_name) VALUES (?,?);");
+        makeOfferedMovie.setString(1,movieName);
+        makeOfferedMovie.setString(2,theatreName);
+        makeOfferedMovie.executeUpdate();
+
+        arr.add(new Theatre(theatreName, null));
+    }
+
+    public void addShowtime(String movieName, String theatreName, LocalDate showtime_date, LocalTime showtime_time) throws SQLException {
+        PreparedStatement makeShowtime = con.prepareStatement("INSERT INTO Showtime (theatre_name, movie_name, date_time) VALUES (?,?,?);");
+        makeShowtime.setString(1,movieName);
+        makeShowtime.setString(2,theatreName);
+        LocalDateTime stuff = LocalDateTime.of(showtime_date, showtime_time);
+        makeShowtime.setTimestamp(3, Timestamp.valueOf(stuff));
+        makeShowtime.executeUpdate();
+        
+        populateSeats(movieName, theatreName, stuff.toString());
     }
 }
