@@ -237,9 +237,14 @@ public class TheatresSingleton extends Singleton<Theatre> {
                 }
             }
         }
-        
-        populateSeats(movieName, theatreName, stuff.toString());
+            
+        }
+        return false;
     }
+        
+        
+    
+
 
     public void setSeatEmpty(String movieName, String theatrename, LocalDateTime datetime, int xCoord, int yCoord) {
         try{
@@ -256,6 +261,6 @@ public class TheatresSingleton extends Singleton<Theatre> {
             e.printStackTrace();
         }
     }
-}
+
 }
 
