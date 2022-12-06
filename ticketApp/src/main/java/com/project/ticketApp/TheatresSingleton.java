@@ -187,7 +187,7 @@ public class TheatresSingleton extends Singleton<Theatre> {
         makeTheatre.setString(2,"Somewhere else");
         makeTheatre.executeUpdate();
 
-        arr.add(new Theatre(theatreName, null));
+        arr.add(new Theatre(theatreName, new ArrayList<OfferedMovie>()));
     }
 
     public void addOfferedMovie(String movieName, String theatreName) throws SQLException{
@@ -195,8 +195,12 @@ public class TheatresSingleton extends Singleton<Theatre> {
         makeOfferedMovie.setString(1,movieName);
         makeOfferedMovie.setString(2,theatreName);
         makeOfferedMovie.executeUpdate();
-        
-        arr.add(new Theatre(theatreName, null));
+        for(Theatre t : arr){
+            if(t.getName().equals(theatreName)){
+                t.addOfferedMovie(new OfferedMovie(new ArrayList<Showtime>(), MoviesSingleton.getInstance().getMovie(movieName)));
+            }
+        }
+       
     }
 
     public void addShowtime(String movieName, String theatreName, LocalDate showtime_date, LocalTime showtime_time) throws SQLException {
@@ -206,7 +210,24 @@ public class TheatresSingleton extends Singleton<Theatre> {
         LocalDateTime stuff = LocalDateTime.of(showtime_date, showtime_time);
         makeShowtime.setTimestamp(3, Timestamp.valueOf(stuff));
         makeShowtime.executeUpdate();
+        for(Theatre t : arr){
+            if(t.getName().equals(theatreName)){
+                for(OfferedMovie om: t.getAvailableMovies()){
+                    if(om.getMovie().getMovieName().equals(movieName)){
+                        ArrayList<ArrayList<Boolean>> seatTable = new ArrayList<ArrayList<Boolean>>();
+                        for (int rowNum = 0; rowNum < 10; rowNum++){
+                            ArrayList<Boolean> row = new ArrayList<Boolean>();
+                            for (int colNum = 0; colNum < 10; colNum++){
+                                row.add(false);
+                            }
+                        om.addShowtime(new Showtime(seatTable, stuff));
+                        populateSeats(movieName, theatreName, stuff.toString());
+                    }
+                }
+            }
+        }
         
-        populateSeats(movieName, theatreName, stuff.toString());
     }
 }
+}
+

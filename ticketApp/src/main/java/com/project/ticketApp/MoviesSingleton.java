@@ -48,6 +48,6 @@ public class MoviesSingleton extends Singleton<Movie>{
         makeSeat.setString(1, movieName);
         makeSeat.setDate(2, Date.valueOf(announceDate));
         makeSeat.executeUpdate();
-        arr.add(new Movie(announceDate,movieName));
+        arr.add(new Movie(announceDate, movieName));
 }    
 }
