@@ -60,8 +60,7 @@ public class MainScreenGUI extends VerticalLayout{
             "HH:mm")).setHeader("Time");
             omGrid.addComponentColumn(st -> {
                 Button getTick = new Button("Get tickets");
-                getTick.addClickListener(ClickEvent -> {selectShowtime(st);
-                    System.out.println("fuck you cunt");});
+                getTick.addClickListener(ClickEvent -> {selectShowtime(st);});
         
                 return getTick;
             });
@@ -100,7 +99,4 @@ public class MainScreenGUI extends VerticalLayout{
         add(theatreGroup);
     }
     //end helper functs
-    public void refresh() {
-        parentController.loadTheatreMovies(theatreCB.getValue());
-    }
 }

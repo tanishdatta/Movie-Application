@@ -54,6 +54,7 @@ public class PaymentController {
                 notify.add(new Paragraph("Your credit pays for the entire purchase"));
                 notify.add(new Paragraph("Your new credit balance is: " + this.credit.getDollars()));
                 notify.open();
+                this.gui.close();
                 this.paymentObserver.paymentGood();
             }
             else{
@@ -61,9 +62,7 @@ public class PaymentController {
                     CreditSingleton.getInstance().deleteCredit(this.credit);
                     this.credit = null;
                     PaymentSingleton.getInstance().createPayment(creditDifference, cardNumber, cardHolder);
-                    Dialog notify = new Dialog();
-                    notify.add(new Paragraph("Payment went through"));
-                    notify.open();
+                    this.gui.close();
                     this.paymentObserver.paymentGood();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -73,11 +72,10 @@ public class PaymentController {
         }
         else{
             try{
-                PaymentSingleton.getInstance().createPayment(creditDifference, cardNumber, cardHolder);
-                    Dialog notify = new Dialog();
-                    notify.add(new Paragraph("Payment went through"));
-                    notify.open();
-                    this.paymentObserver.paymentGood();
+                PaymentSingleton.getInstance().createPayment(dollarAmount, cardNumber, cardHolder);
+                this.gui.close();
+                this.paymentObserver.paymentGood();
+                System.out.println("paid without credit code");
             }catch(SQLException e){
                 e.printStackTrace();
             }
@@ -92,7 +90,7 @@ public class PaymentController {
         //Display a notification confirming payment
         //notify payment observer that payment is good to go
         //close payment gui
-        this.gui.close();
+        
 
 
 

@@ -5,16 +5,17 @@ public class Ticket {
     private int xCoord; 
     private int yCoord;
     private Showtime showtime;
-    private int price = 15;
+    private int price;
     private int ticketID;
     
     //Remember to add ticket notification (email or pop up)
 
-    public Ticket(int xCoord, int yCoord, Showtime showtime, int ticketID){
+    public Ticket(int xCoord, int yCoord, Showtime showtime, int ticketID, int price){
         this.xCoord = xCoord;
         this.yCoord = yCoord;
         this.showtime = showtime;
         this.ticketID = ticketID;
+        this.price = price;
         
     }
     public int getTicketID(){

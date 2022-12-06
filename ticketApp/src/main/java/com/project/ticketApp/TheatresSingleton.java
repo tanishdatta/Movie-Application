@@ -160,4 +160,26 @@ public class TheatresSingleton extends Singleton<Theatre> {
     public ArrayList<Theatre> getAllTheatres(){
         return arr;
     }
+
+    public Showtime getShowtime(String theatre_name, String movie_name, LocalDateTime time) {
+        for (Theatre t : arr){
+            System.out.println("looking at theatre: "+ t.getName());
+            if (t.getName().equals(theatre_name)){
+                for (OfferedMovie om : t.getAvailableMovies()){
+                    System.out.println("looking at offeredmovie: "+ om.getMovie().getMovieName());
+                    if (om.getMovie().getMovieName().equals(movie_name)){
+                        for (Showtime st : om.getShowtimes()){
+                            System.out.println("looking at showtime: "+ st.getTime());
+                            if (st.getTime().equals(time)){
+                                return st;
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+        System.out.println("Error finding showtime in theatressingleton");
+        return null;
+    }
 }

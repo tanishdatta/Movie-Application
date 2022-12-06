@@ -18,12 +18,15 @@ public class TicketGUI extends Dialog {
     //start components...
     VerticalLayout ticketDisplay = new VerticalLayout();
     Button refund = new Button("Refund Ticket");
+    Button done = new Button("Done");
     Paragraph refundPara;
     //end componentes
 
     //start important functs...
     public TicketGUI(TicketController parentController, Ticket ticket){
-        initTicketDisplay(ticket);//prints out ticket information
+        this.ticket = ticket;
+        this.parentController = parentController;
+        initTicketDisplay();//prints out ticket information
         initRefundButton();//build a refund button
     }
     public void refundTicket(){
@@ -43,17 +46,24 @@ public class TicketGUI extends Dialog {
     //end important functs
     
     //start helper functs...
-    private void initTicketDisplay(Ticket ticket) {
+    private void initTicketDisplay() {
+        
         ticketDisplay.add(new Paragraph("Movie: "+ ticket.getShowtime().getMovie().getMovie().getMovieName()));
         ticketDisplay.add(new Paragraph("Theatre: "+ ticket.getShowtime().getMovie().getTheatre().getName()));
         //add date time formatter later
-        ticketDisplay.add(new Paragraph("Showtime: "+ ticket.getShowtime().getTime()));
-        ticketDisplay.add(new Paragraph("Seat:"+ IntToChar.convert(ticket.getxCoord())+ticket.getyCoord()));
+        String [] stuff = ticket.getShowtime().getTime().toString().split("T");
+        String display = "\nDate: " + stuff[0] + "\n" + "Time: " + stuff[1];
+        ticketDisplay.add(new Paragraph(display));
+        //ticketDisplay.add(new Paragraph("Showtime: "+ ticket.getShowtime().getTime()));
+        ticketDisplay.add(new Paragraph("Seat: "+ IntToChar.convert(ticket.getxCoord())+ticket.getyCoord()));
+        ticketDisplay.add(new Paragraph("TicketID: "+ ticket.getTicketID()));
         add(ticketDisplay);
     }
     private void initRefundButton() {
         refund.addClickListener(ClickEvent ->{refundTicket();});
         add(refund);
+        done.addClickListener(ClickEvent ->{this.close();});
+        add(done);
     }
     //end helper functs
 }

@@ -1,5 +1,6 @@
 package com.project.ticketApp;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane.CloseAction;
@@ -9,7 +10,7 @@ import com.vaadin.flow.component.html.Paragraph;
 
 public class SeatController implements PaymentObserver{
     private Showtime showtime;
-    private int ticketPrice = 300;
+    private int ticketPrice = 300;//hardcoded ticket price
     private RegisteredUser user;
     private int xCoord;
     private int yCoord;
@@ -68,14 +69,16 @@ public class SeatController implements PaymentObserver{
     public void paymentGood() {
         //call showtime obj, passing in coords
         //show confirmation dialog
-        
+        Ticket tick = null;
         showtime.setSeatOccupied(xCoord, yCoord);// updates showtime arraylist
-
-        Dialog notify = new Dialog();
-        notify.add(new Paragraph("Seat chosen"));
-        notify.addDialogCloseActionListener(CloseAction -> seatgui.close());
-        notify.open();
-        parentController.refreshGUI();
+        try {
+            tick = TicketsSingleton.getInstance().createTicket(xCoord, yCoord, showtime, ticketPrice);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        TicketController tickCon = new TicketController(parentController);
+        tickCon.viewTicket(tick);
+        
         
     }
     

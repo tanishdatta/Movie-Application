@@ -89,7 +89,4 @@ public class MainController extends VerticalLayout{
         //instantiates ticketController
         //calls viewTicket in ticketController and pass in ticketCode
     }
-    public void refreshGUI(){
-        gui.refresh();
-    }
 }

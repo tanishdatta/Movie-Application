@@ -12,7 +12,6 @@ public class Showtime {
    public Showtime(ArrayList<ArrayList<Boolean>> seats, LocalDateTime time){
     this.seatOccupied = seats;
     this.time = time;
-    this.movie = movie;
    }
    public LocalDateTime getTime(){
     return time;
@@ -52,5 +51,6 @@ public class Showtime {
 public void setMovie(OfferedMovie offeredMovie) {
     this.movie = offeredMovie;
 }
+
 
 }

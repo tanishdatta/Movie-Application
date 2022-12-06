@@ -4,6 +4,7 @@ import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Paragraph;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.chrono.ChronoLocalDateTime;
 
 public class TicketController {
@@ -18,18 +19,24 @@ public class TicketController {
     public void viewTicket(int ticketID){
         try {
             this.ticket = TicketsSingleton.getInstance().verifyTicket(ticketID);
-            if(ticket.equals(null)){
+            if(ticket == null){
                 Dialog notify = new Dialog();
                 notify.add(new Paragraph("Ticket Does Not Exist"));
                 notify.open();
             }
-            else {
-                this.gui = new TicketGUI(this, ticket);
+            else{
+                viewTicket(ticket);
             }
         }catch(Exception e){
             e.printStackTrace();
             System.exit(1);
         }
+    }
+    public void viewTicket(Ticket tick) {
+        //this.ticket = tick;
+        this.gui = new TicketGUI(this, tick);
+        gui.open();
+
         //called by main controller
         //verify ticketID using ticketsingleton (receive ticket obj)
         //set this.ticket = shit you got from singleton
@@ -37,7 +44,7 @@ public class TicketController {
     }
     public void refundTicket(){
         try {
-            if(!ticket.getShowtime().getTime().isBefore(ChronoLocalDateTime.from(LocalDate.now().plusDays(3)))){
+            if(!ticket.getShowtime().getTime().isBefore(LocalDateTime.now().plusDays(3))){
                 Dialog notify = new Dialog();
                 notify.add(new Paragraph("Ticket is refunded"));
                 notify.open();
@@ -63,5 +70,6 @@ public class TicketController {
         //get credit code from credit
         //call displayrefundcode in ticketgui, passing in credit code and amount refunded
     }
+    
 
 }
