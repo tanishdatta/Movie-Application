@@ -5,7 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class TheatresSingleton extends Singleton<Theatre> {
@@ -236,6 +238,7 @@ public class TheatresSingleton extends Singleton<Theatre> {
         }
         
         }
+        return false;
     
     }
 
