@@ -65,12 +65,13 @@ public class CreditSingleton extends Singleton<Credit> {
     public void subtractDollars(Credit credit, int dollar) throws SQLException{
         //Subtract dollar value to credit in database
         //Subtract dollar value to credit object in ArrayList
-
+        System.out.println("Subtracting dollars from credit");
         int code = credit.getCreditCode();
         PreparedStatement uStatement = con.prepareStatement("UPDATE refund_credit SET dollar_amount = dollar_amount - ? WHERE credit_code = ?;");
         uStatement.setInt(1, dollar);
         uStatement.setInt(2, code);
         uStatement.executeUpdate();
+        credit.subtractDollars(dollar);
 
     }
 

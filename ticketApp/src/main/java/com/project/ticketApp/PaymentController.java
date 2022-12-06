@@ -49,7 +49,12 @@ public class PaymentController {
         notionalVerification.open();
         if (credit != null){
             if(creditDifference <= 0){
-                this.credit.subtractDollars(dollarAmount);
+                try {
+                    CreditSingleton.getInstance().subtractDollars(this.credit, dollarAmount);
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 Dialog notify = new Dialog();
                 notify.add(new Paragraph("Your credit pays for the entire purchase"));
                 notify.add(new Paragraph("Your new credit balance is: " + this.credit.getDollars()));

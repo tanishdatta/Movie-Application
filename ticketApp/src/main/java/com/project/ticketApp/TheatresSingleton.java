@@ -210,4 +210,20 @@ public class TheatresSingleton extends Singleton<Theatre> {
         
         populateSeats(movieName, theatreName, stuff.toString());
     }
+
+    public void setSeatEmpty(String movieName, String theatrename, LocalDateTime datetime, int xCoord, int yCoord) {
+        try{
+            PreparedStatement makeSeat = con.prepareStatement("UPDATE Seat SET status = ? WHERE theatre_name = ? AND movie_name = ? AND showtime_time = ? AND seatXcoord = ? AND seatYcoord = ?;");
+            makeSeat.setBoolean(1, true);
+            makeSeat.setString(2, theatrename);
+            makeSeat.setString(3, movieName);
+            makeSeat.setTimestamp(4, Timestamp.valueOf(datetime));
+            makeSeat.setInt(5, xCoord);
+            makeSeat.setInt(6, yCoord);
+            
+            makeSeat.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 }

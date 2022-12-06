@@ -52,6 +52,7 @@ public class TicketController {
                 Credit credit = CreditSingleton.getInstance().createCredit(ticket.getPrice());
                 this.gui.displayRefundCode(credit.getCreditCode(), ticket.getPrice());
                 TicketsSingleton.getInstance().deleteTicket(ticket);
+                TheatresSingleton.getInstance().setSeatEmpty(ticket.getShowtime().getMovie().getMovie().getMovieName(), ticket.getShowtime().getMovie().getTheatre().getName(), ticket.getShowtime().getTime(), ticket.getxCoord(), ticket.getyCoord());
             }
             else{
                 this.gui.nonRefundable();
