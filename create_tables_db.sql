@@ -1,3 +1,6 @@
+DROP DATABASE ticketReservation_db;
+CREATE DATABASE ticketReservation_db;
+
 USE ticketReservation_db;
 
 CREATE TABLE RegisteredUser (

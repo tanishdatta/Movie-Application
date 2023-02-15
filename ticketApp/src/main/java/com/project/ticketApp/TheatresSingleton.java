@@ -17,11 +17,11 @@ public class TheatresSingleton extends Singleton<Theatre> {
        initConnection();
        //do this once and comment it out lol
         
-        // populateSeats("Star Wars: Episode VII - The Force Awakens","WISH.com_cineplex", "2022-12-16 17:10:00");
-        // populateSeats("Avengers: Endgame","WISH.com_cineplex", "2022-12-18 13:10:00");
-        // populateSeats("Spider-Man: No Way Home","WISH.com_cineplex", "2022-12-21 10:00:00");
-        // populateSeats("Avatar","WISH.com_cineplex", "2022-12-07 06:00:00");
-        // populateSeats("Top Gun: Maverick","WISH.com_cineplex", "2022-12-06 20:00:00");
+        populateSeats("Star Wars: Episode VII - The Force Awakens","WISH.com_cineplex", "2023-02-19 17:10:00");
+        populateSeats("Avengers: Endgame","WISH.com_cineplex", "2023-02-18 13:10:00");
+        populateSeats("Spider-Man: No Way Home","WISH.com_cineplex", "2023-02-21 10:00:00");
+        populateSeats("Avatar","Cineplex_2.0", "2023-02-27 06:00:00");
+        populateSeats("Top Gun: Maverick","Cineplex_2.0", "2023-02-26 20:00:00");
         
        //getting theatres
        PreparedStatement theatreQuery = con.prepareStatement("SELECT Name FROM Theatre;");

@@ -70,6 +70,7 @@ public class MainScreenGUI extends VerticalLayout{
             movieAC.add(om.getMovie().getMovieName(),omLayout);
             add(movieAC);
         } 
+        
     }
     //end importnat functs
 

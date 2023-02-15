@@ -29,7 +29,6 @@ public class SeatGUI extends Dialog{
         //10 by 10 is a VAADIN grid
         //Button calls selectSeat with coordinates somehow you figure it out
 
-        //Just fuckin do it
     }
 
     
@@ -74,6 +73,10 @@ public class SeatGUI extends Dialog{
                 }
             }).setHeader(String.valueOf(column)).setAutoWidth(true).setFlexGrow(1);
         }
+        seatGrid.setAllRowsVisible(isVisible());
+        seatGrid.setSizeFull();
+
+
         add(seatGrid);
     }
     //end helper functions

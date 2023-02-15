@@ -9,7 +9,7 @@ INSERT INTO registereduser (username, password, name, credit_card_num, credit_ca
 ('Harnoor5', 'ensf', 'Harnoor', 1234, 'Harnoor', '2010-12-4');
 
 INSERT INTO movie (name, announcement_date) VALUES
-('Star Wars: Episode VII - The Force Awakens', '2022-12-01'),
+('Star Wars: Episode VII - The Force Awakens', '2023-2-01'),
 ('Avengers: Endgame', '2022-12-01'),
 ('Spider-Man: No Way Home', '2022-12-01'),
 ('Avatar','2022-12-06'),
@@ -19,7 +19,7 @@ INSERT INTO theatre (name, location) VALUES
 ('WISH.com_cineplex', 'somewhere');
 
 INSERT INTO showtime (movie_name, theatre_name, date_time) VALUES
-('Star Wars: Episode VII - The Force Awakens','WISH.com_cineplex', '2022-12-16 17:10:00'),
+('Star Wars: Episode VII - The Force Awakens','WISH.com_cineplex', '2023-2-19 17:10:00'),
 ('Avengers: Endgame','WISH.com_cineplex', '2022-12-18 13:10:00'),
 ('Spider-Man: No Way Home','WISH.com_cineplex', '2022-12-21 10:00:00'),
 ('Avatar','WISH.com_cineplex', '2022-12-07 06:00:00'),
